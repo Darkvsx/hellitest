@@ -57,6 +57,30 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleAddService = () => {
+    setEditingService(null);
+    setIsServiceModalOpen(true);
+  };
+
+  const handleEditService = (service: Service) => {
+    setEditingService(service);
+    setIsServiceModalOpen(true);
+  };
+
+  const handleSaveService = (serviceData: Omit<Service, 'id' | 'createdAt' | 'orders'>) => {
+    if (editingService) {
+      updateService(editingService.id, serviceData);
+    } else {
+      addService(serviceData);
+    }
+  };
+
+  const handleDeleteService = (id: string) => {
+    if (confirm('Are you sure you want to delete this service?')) {
+      deleteService(id);
+    }
+  };
+
   const totalRevenue = orders
     .filter(order => order.status === "completed")
     .reduce((sum, order) => sum + order.amount, 0);
