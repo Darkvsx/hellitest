@@ -140,17 +140,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
+      if (useMockAuth || !isSupabaseAvailable) {
+        console.log('Using mock auth for login');
+        const { user, error } = await MockAuth.signIn(email, password);
 
-      if (error) {
-        console.error('Login error:', error.message);
-        return false;
+        if (error) {
+          console.error('Mock login error:', error.message);
+          return false;
+        }
+
+        return !!user;
+      } else {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password
+        });
+
+        if (error) {
+          console.error('Login error:', error.message);
+          return false;
+        }
+
+        return !!data.user;
       }
-
-      return !!data.user;
     } catch (error) {
       console.error('Login error:', error);
       return false;
@@ -161,31 +173,50 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       console.log('Attempting registration for:', email);
 
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            username
-          }
+      if (useMockAuth || !isSupabaseAvailable) {
+        console.log('Using mock auth for registration');
+        const { user, error } = await MockAuth.signUp(email, password, username);
+
+        console.log('Mock auth response:', { user, error });
+
+        if (error) {
+          console.error('Mock registration error:', error.message);
+          return false;
         }
-      });
 
-      console.log('Supabase response:', { data, error });
+        if (user) {
+          console.log('Mock user created successfully:', user.id);
+          return true;
+        }
 
-      if (error) {
-        console.error('Registration error:', error.message);
-        console.error('Full error object:', error);
+        return false;
+      } else {
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              username
+            }
+          }
+        });
+
+        console.log('Supabase response:', { data, error });
+
+        if (error) {
+          console.error('Registration error:', error.message);
+          console.error('Full error object:', error);
+          return false;
+        }
+
+        if (data.user) {
+          console.log('User created successfully:', data.user.id);
+          return true;
+        }
+
+        console.log('No user returned but no error');
         return false;
       }
-
-      if (data.user) {
-        console.log('User created successfully:', data.user.id);
-        return true;
-      }
-
-      console.log('No user returned but no error');
-      return false;
     } catch (error) {
       console.error('Registration catch error:', error);
       return false;
@@ -193,7 +224,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = async () => {
-    await supabase.auth.signOut();
+    if (useMockAuth || !isSupabaseAvailable) {
+      await MockAuth.signOut();
+    } else {
+      await supabase.auth.signOut();
+    }
     setAuthState({ user: null, loading: false });
   };
 
