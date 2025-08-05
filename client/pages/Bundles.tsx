@@ -5,17 +5,18 @@ import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  ArrowLeft, 
-  Package, 
-  Star, 
-  ShoppingCart, 
-  CheckCircle, 
+import {
+  ArrowLeft,
+  Package,
+  Star,
+  ShoppingCart,
+  CheckCircle,
   Clock,
   Trophy,
   Zap,
   ArrowRight,
-  Shield
+  Shield,
+  MessageSquare
 } from "lucide-react";
 
 interface Bundle {
