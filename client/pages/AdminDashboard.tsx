@@ -250,20 +250,38 @@ export default function AdminDashboard() {
                       <div key={service.id} className="flex items-center justify-between p-4 border border-border rounded-lg">
                         <div className="flex items-center space-x-4">
                           <div>
-                            <p className="font-medium">{service.name}</p>
-                            <p className="text-sm text-muted-foreground">{service.orders} orders</p>
+                            <p className="font-medium">{service.title}</p>
+                            <p className="text-sm text-muted-foreground">{service.orders} orders • {service.difficulty}</p>
+                            <p className="text-xs text-muted-foreground">{service.duration}</p>
                           </div>
                         </div>
                         <div className="flex items-center space-x-3">
-                          <Badge variant={service.active ? "default" : "secondary"}>
+                          {service.popular && (
+                            <Badge variant="outline" className="text-xs">
+                              Popular
+                            </Badge>
+                          )}
+                          <Badge
+                            variant={service.active ? "default" : "secondary"}
+                            className="cursor-pointer"
+                            onClick={() => toggleServiceStatus(service.id)}
+                          >
                             {service.active ? "Active" : "Inactive"}
                           </Badge>
                           <span className="font-medium">${service.price}</span>
                           <div className="flex space-x-1">
-                            <Button size="sm" variant="ghost">
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => handleEditService(service)}
+                            >
                               <Edit className="w-4 h-4" />
                             </Button>
-                            <Button size="sm" variant="ghost">
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => handleDeleteService(service.id)}
+                            >
                               <Trash2 className="w-4 h-4" />
                             </Button>
                           </div>
