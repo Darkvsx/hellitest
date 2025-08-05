@@ -347,10 +347,10 @@ export default function Index() {
             <div>
               <h3 className="font-semibold text-foreground mb-4">Account</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-foreground transition-colors">Login</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Register</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">My Orders</a></li>
-                <li><a href="#" className="hover:text-foreground transition-colors">Admin Panel</a></li>
+                <li><Link to="/login" className="hover:text-foreground transition-colors">Login</Link></li>
+                <li><Link to="/register" className="hover:text-foreground transition-colors">Register</Link></li>
+                <li><Link to="/cart" className="hover:text-foreground transition-colors">My Orders</Link></li>
+                <li><Link to="/admin" className="hover:text-foreground transition-colors">Admin Panel</Link></li>
               </ul>
             </div>
           </div>
