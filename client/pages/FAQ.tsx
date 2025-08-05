@@ -208,12 +208,17 @@ export default function FAQ() {
                 Our support team is available 24/7 to help you with any questions
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button className="bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90">
-                  <MessageSquare className="w-4 h-4 mr-2" />
-                  Contact Support
+                <Button className="bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90" asChild>
+                  <Link to="/contact">
+                    <MessageSquare className="w-4 h-4 mr-2" />
+                    Contact Support
+                  </Link>
                 </Button>
-                <Button variant="outline" className="border-primary/20 hover:bg-primary/10">
-                  Join Discord
+                <Button variant="outline" className="border-primary/20 hover:bg-primary/10" asChild>
+                  <a href="https://discord.gg/helldivers2boost" target="_blank" rel="noopener noreferrer">
+                    <MessageSquare className="w-4 h-4 mr-2" />
+                    Join Discord
+                  </a>
                 </Button>
               </div>
             </CardContent>
