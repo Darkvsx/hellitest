@@ -61,7 +61,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const { data: profile, error } = await supabase
         .from('profiles')
         .select('*')
-        .eq('id', supabaseUser.id)
+        .eq('user_id', supabaseUser.id)
         .single();
 
       if (error && error.code !== 'PGRST116') {
@@ -72,7 +72,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       const user: User = {
         id: supabaseUser.id,
-        username: profile?.username || supabaseUser.email?.split('@')[0] || 'User',
+        username: profile?.username || profile?.display_name || supabaseUser.email?.split('@')[0] || 'User',
         email: supabaseUser.email || '',
         role: profile?.role || 'user'
       };
