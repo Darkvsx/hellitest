@@ -52,29 +52,53 @@ export default function Index() {
 
             {/* Actions */}
             <div className="hidden md:flex items-center space-x-4">
-              <Button variant="ghost" size="sm" asChild>
-                <Link to="/admin">
-                  <User className="w-4 h-4 mr-2" />
-                  Account
-                </Link>
-              </Button>
-              <Button variant="ghost" size="sm" className="relative" asChild>
-                <Link to="/cart">
-                  <ShoppingCart className="w-4 h-4 mr-2" />
-                  Cart
-                  {cartItems.length > 0 && (
-                    <Badge className="absolute -top-2 -right-2 w-5 h-5 rounded-full p-0 flex items-center justify-center text-xs">
-                      {cartItems.length}
-                    </Badge>
+              {isAuthenticated ? (
+                <>
+                  {isAdmin && (
+                    <Button variant="ghost" size="sm" asChild>
+                      <Link to="/admin">
+                        <User className="w-4 h-4 mr-2" />
+                        Admin
+                      </Link>
+                    </Button>
                   )}
-                </Link>
-              </Button>
-              <Button size="sm" asChild>
-                <Link to="/login">
-                  <LogIn className="w-4 h-4 mr-2" />
-                  Login
-                </Link>
-              </Button>
+                  <Button variant="ghost" size="sm" className="relative" asChild>
+                    <Link to="/cart">
+                      <ShoppingCart className="w-4 h-4 mr-2" />
+                      Cart
+                      {cartItems.length > 0 && (
+                        <Badge className="absolute -top-2 -right-2 w-5 h-5 rounded-full p-0 flex items-center justify-center text-xs">
+                          {cartItems.length}
+                        </Badge>
+                      )}
+                    </Link>
+                  </Button>
+                  <span className="text-sm text-muted-foreground">Welcome, {user?.username}</span>
+                  <Button size="sm" variant="outline" onClick={logout}>
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="ghost" size="sm" className="relative" asChild>
+                    <Link to="/cart">
+                      <ShoppingCart className="w-4 h-4 mr-2" />
+                      Cart
+                      {cartItems.length > 0 && (
+                        <Badge className="absolute -top-2 -right-2 w-5 h-5 rounded-full p-0 flex items-center justify-center text-xs">
+                          {cartItems.length}
+                        </Badge>
+                      )}
+                    </Link>
+                  </Button>
+                  <Button size="sm" asChild>
+                    <Link to="/login">
+                      <LogIn className="w-4 h-4 mr-2" />
+                      Login
+                    </Link>
+                  </Button>
+                </>
+              )}
             </div>
 
             {/* Mobile menu button */}
