@@ -294,9 +294,15 @@ export default function About() {
               </div>
             </div>
             
-            <div className="mt-8">
+            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90" asChild>
                 <Link to="/">Start Your Journey</Link>
+              </Button>
+              <Button variant="outline" className="border-primary/20 hover:bg-primary/10" asChild>
+                <a href="https://discord.gg/helldivers2boost" target="_blank" rel="noopener noreferrer">
+                  <MessageSquare className="w-4 h-4 mr-2" />
+                  Join Discord Community
+                </a>
               </Button>
             </div>
           </CardContent>
