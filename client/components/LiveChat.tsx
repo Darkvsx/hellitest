@@ -124,7 +124,7 @@ export function LiveChat() {
               <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse" />
               Live Support
               <div className="ml-2 flex items-center text-xs opacity-75">
-                <Online className="w-3 h-3 mr-1" />
+                <Circle className="w-3 h-3 mr-1 fill-current" />
                 Online
               </div>
             </CardTitle>
