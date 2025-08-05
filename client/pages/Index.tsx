@@ -171,9 +171,9 @@ export default function Index() {
           <div className="md:hidden bg-background/95 backdrop-blur-md border-t border-border">
             <div className="px-4 py-2 space-y-2">
               <Link to="#services" className="block py-2 text-muted-foreground hover:text-primary">Services</Link>
-              <Link to="#bundles" className="block py-2 text-muted-foreground hover:text-primary">Bundles</Link>
-              <Link to="#about" className="block py-2 text-muted-foreground hover:text-primary">About</Link>
-              <Link to="#faq" className="block py-2 text-muted-foreground hover:text-primary">FAQ</Link>
+              <Link to="/bundles" className="block py-2 text-muted-foreground hover:text-primary">Bundles</Link>
+              <Link to="/about" className="block py-2 text-muted-foreground hover:text-primary">About</Link>
+              <Link to="/faq" className="block py-2 text-muted-foreground hover:text-primary">FAQ</Link>
               {isAuthenticated ? (
                 <>
                   <div className="flex space-x-2 pt-2">
