@@ -125,31 +125,59 @@ export default function Index() {
               <a href="#services" className="block py-2 text-muted-foreground hover:text-foreground">Services</a>
               <a href="#about" className="block py-2 text-muted-foreground hover:text-foreground">About</a>
               <a href="#contact" className="block py-2 text-muted-foreground hover:text-foreground">Contact</a>
-              <div className="flex space-x-2 pt-2">
-                <Button variant="ghost" size="sm" className="flex-1" asChild>
-                  <Link to="/admin">
-                    <User className="w-4 h-4 mr-2" />
-                    Account
-                  </Link>
-                </Button>
-                <Button variant="ghost" size="sm" className="flex-1 relative" asChild>
-                  <Link to="/cart">
-                    <ShoppingCart className="w-4 h-4 mr-2" />
-                    Cart
-                    {cartItems.length > 0 && (
-                      <Badge className="absolute -top-1 -right-1 w-4 h-4 rounded-full p-0 flex items-center justify-center text-xs">
-                        {cartItems.length}
-                      </Badge>
+              {isAuthenticated ? (
+                <>
+                  <div className="flex space-x-2 pt-2">
+                    {isAdmin && (
+                      <Button variant="ghost" size="sm" className="flex-1" asChild>
+                        <Link to="/admin">
+                          <User className="w-4 h-4 mr-2" />
+                          Admin
+                        </Link>
+                      </Button>
                     )}
-                  </Link>
-                </Button>
-              </div>
-              <Button size="sm" className="w-full" asChild>
-                <Link to="/login">
-                  <LogIn className="w-4 h-4 mr-2" />
-                  Login
-                </Link>
-              </Button>
+                    <Button variant="ghost" size="sm" className="flex-1 relative" asChild>
+                      <Link to="/cart">
+                        <ShoppingCart className="w-4 h-4 mr-2" />
+                        Cart
+                        {cartItems.length > 0 && (
+                          <Badge className="absolute -top-1 -right-1 w-4 h-4 rounded-full p-0 flex items-center justify-center text-xs">
+                            {cartItems.length}
+                          </Badge>
+                        )}
+                      </Link>
+                    </Button>
+                  </div>
+                  <div className="pt-2 text-center text-sm text-muted-foreground">
+                    Welcome, {user?.username}
+                  </div>
+                  <Button size="sm" className="w-full" variant="outline" onClick={logout}>
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <div className="flex space-x-2 pt-2">
+                    <Button variant="ghost" size="sm" className="flex-1 relative" asChild>
+                      <Link to="/cart">
+                        <ShoppingCart className="w-4 h-4 mr-2" />
+                        Cart
+                        {cartItems.length > 0 && (
+                          <Badge className="absolute -top-1 -right-1 w-4 h-4 rounded-full p-0 flex items-center justify-center text-xs">
+                            {cartItems.length}
+                          </Badge>
+                        )}
+                      </Link>
+                    </Button>
+                  </div>
+                  <Button size="sm" className="w-full" asChild>
+                    <Link to="/login">
+                      <LogIn className="w-4 h-4 mr-2" />
+                      Login
+                    </Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         )}
