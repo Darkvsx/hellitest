@@ -24,6 +24,7 @@ import Bundles from "./pages/Bundles";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import OrderTracking from "./pages/OrderTracking";
+import Checkout from "./pages/Checkout";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
