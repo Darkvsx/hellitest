@@ -10,15 +10,16 @@ import { ShoppingCart, User, LogIn, Menu, X, Star, Shield, Clock, Trophy, Target
 
 export default function Index() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [cartItems, setCartItems] = useState<string[]>([]);
   const { isAuthenticated, isAdmin, user, logout } = useAuth();
   const { services } = useServices();
+  const { addToCart, getCartItemCount } = useCart();
 
   // Only show active services on homepage
   const activeServices = services.filter(service => service.active);
+  const cartItemCount = getCartItemCount();
 
-  const addToCart = (serviceId: string) => {
-    setCartItems(prev => [...prev, serviceId]);
+  const handleAddToCart = (service: any) => {
+    addToCart(service);
   };
 
   return (
