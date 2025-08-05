@@ -18,9 +18,12 @@ import Register from "./pages/Register";
 import Cart from "./pages/Cart";
 import Account from "./pages/Account";
 import AdminDashboard from "./pages/AdminDashboard";
+import EnhancedAdminDashboard from "./pages/EnhancedAdminDashboard";
 import FAQ from "./pages/FAQ";
 import Bundles from "./pages/Bundles";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
+import OrderTracking from "./pages/OrderTracking";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
