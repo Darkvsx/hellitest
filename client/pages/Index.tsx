@@ -255,7 +255,7 @@ export default function Index() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {boostingServices.map((service) => (
+              {activeServices.map((service) => (
                 <Card key={service.id} className="relative overflow-hidden hover:shadow-lg transition-shadow">
                   {service.popular && (
                     <div className="absolute top-4 right-4">
