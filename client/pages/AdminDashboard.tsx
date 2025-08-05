@@ -29,21 +29,13 @@ interface Order {
   date: string;
 }
 
-interface Service {
-  id: string;
-  name: string;
-  price: number;
-  active: boolean;
-  orders: number;
-}
-
 const mockOrders: Order[] = [];
-
-const mockServices: Service[] = [];
 
 export default function AdminDashboard() {
   const [orders] = useState<Order[]>(mockOrders);
-  const [services] = useState<Service[]>(mockServices);
+  const { services, addService, updateService, deleteService, toggleServiceStatus } = useServices();
+  const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
+  const [editingService, setEditingService] = useState<Service | null>(null);
 
   const getStatusColor = (status: Order["status"]) => {
     switch (status) {
