@@ -52,9 +52,11 @@ const mockOrders: Order[] = [
 
 export default function Account() {
   const { user, logout } = useAuth();
+  const { getUserOrders } = useOrders();
   const [showPassword, setShowPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  const [orders] = useState<Order[]>(mockOrders);
+
+  const userOrders = user ? getUserOrders(user.id) : [];
   const [accountData, setAccountData] = useState({
     username: user?.username || "",
     email: user?.email || "",
