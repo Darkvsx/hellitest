@@ -63,6 +63,20 @@ export default function Login() {
             </CardDescription>
           </CardHeader>
           <CardContent>
+            {error && (
+              <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded-lg text-sm mb-4">
+                {error}
+              </div>
+            )}
+
+            <div className="bg-muted/50 border border-border px-4 py-3 rounded-lg text-sm mb-4">
+              <p className="font-medium mb-2">Demo Credentials:</p>
+              <p className="text-xs text-muted-foreground">
+                <strong>Admin:</strong> admin@helldivers.com / admin123<br />
+                <strong>User:</strong> user@example.com / password
+              </p>
+            </div>
+
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
