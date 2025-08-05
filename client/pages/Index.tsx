@@ -487,10 +487,11 @@ export default function Index() {
             <div>
               <h3 className="font-semibold text-foreground mb-4">Support</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link to="#" className="hover:text-primary transition-colors">FAQ</Link></li>
-                <li><Link to="#" className="hover:text-primary transition-colors">Contact Us</Link></li>
-                <li><Link to="#" className="hover:text-primary transition-colors">Terms of Service</Link></li>
-                <li><Link to="#" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
+                <li><Link to="/faq" className="hover:text-primary transition-colors">FAQ</Link></li>
+                <li><Link to="/contact" className="hover:text-primary transition-colors">Contact Us</Link></li>
+                <li><a href="https://discord.gg/helldivers2boost" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Discord Community</a></li>
+                <li><Link to="/terms" className="hover:text-primary transition-colors">Terms of Service</Link></li>
+                <li><Link to="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
               </ul>
             </div>
             
