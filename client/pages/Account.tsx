@@ -219,22 +219,29 @@ export default function Account() {
                         <div className="flex items-center justify-between mb-3">
                           <div>
                             <h3 className="font-medium">{order.id}</h3>
-                            <p className="text-sm text-muted-foreground">{order.service}</p>
+                            <p className="text-sm text-muted-foreground">
+                              {order.services.map(s => s.name).join(', ')}
+                            </p>
                           </div>
                           <div className="text-right">
                             <Badge className={getStatusColor(order.status)}>
                               {getStatusIcon(order.status)}
                               <span className="ml-1 capitalize">{order.status}</span>
                             </Badge>
-                            <p className="text-sm text-muted-foreground mt-1">${order.amount}</p>
+                            <p className="text-sm text-muted-foreground mt-1">${order.totalAmount}</p>
                           </div>
                         </div>
-                        
+
                         <div className="flex items-center justify-between text-sm">
-                          <span className="text-muted-foreground">Order Date: {order.date}</span>
+                          <span className="text-muted-foreground">
+                            Order Date: {new Date(order.createdAt).toLocaleDateString()}
+                          </span>
                           {order.progress && (
-                            <span className="text-muted-foreground">Progress: {order.progress}</span>
+                            <span className="text-muted-foreground">Progress: {order.progress}%</span>
                           )}
+                          <Link to={`/order/${order.id}`} className="text-primary hover:underline">
+                            Track Order
+                          </Link>
                         </div>
                       </div>
                     ))}
