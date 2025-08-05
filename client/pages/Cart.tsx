@@ -16,50 +16,21 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-interface CartItem {
-  id: string;
-  title: string;
-  price: number;
-  quantity: number;
-  duration: string;
-  image?: string;
-}
-
-const mockCartItems: CartItem[] = [
-  {
-    id: "level-boost",
-    title: "Level Boost (1-50)",
-    price: 29.99,
-    quantity: 1,
-    duration: "1-3 days"
-  },
-  {
-    id: "super-samples",
-    title: "Super Sample Farming",
-    price: 34.99,
-    quantity: 1,
-    duration: "2-4 days"
-  }
-];
-
 export default function Cart() {
-  const [cartItems, setCartItems] = useState<CartItem[]>(mockCartItems);
+  const { cartItems, updateQuantity, removeFromCart, getCartTotal } = useCart();
 
-  const updateQuantity = (id: string, change: number) => {
-    setCartItems(items =>
-      items.map(item =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + change) }
-          : item
-      )
-    );
+  const handleUpdateQuantity = (serviceId: string, change: number) => {
+    const currentItem = cartItems.find(item => item.service.id === serviceId);
+    if (currentItem) {
+      updateQuantity(serviceId, Math.max(1, currentItem.quantity + change));
+    }
   };
 
-  const removeItem = (id: string) => {
-    setCartItems(items => items.filter(item => item.id !== id));
+  const handleRemoveItem = (serviceId: string) => {
+    removeFromCart(serviceId);
   };
 
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const subtotal = getCartTotal();
   const tax = subtotal * 0.08; // 8% tax
   const total = subtotal + tax;
 
