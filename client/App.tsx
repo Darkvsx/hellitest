@@ -38,6 +38,9 @@ const App = () => (
                 <Route path="/register" element={<Register />} />
                 <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
                 <Route path="/account" element={<ProtectedRoute><Account /></ProtectedRoute>} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/bundles" element={<Bundles />} />
+                <Route path="/about" element={<About />} />
                 <Route path="/admin" element={
                   <ProtectedRoute requireAdmin>
                     <AdminDashboard />
