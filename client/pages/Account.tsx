@@ -214,7 +214,7 @@ export default function Account() {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {orders.map((order) => (
+                    {userOrders.map((order) => (
                       <div key={order.id} className="border border-border rounded-lg p-4">
                         <div className="flex items-center justify-between mb-3">
                           <div>
