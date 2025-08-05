@@ -11,15 +11,39 @@ import { Link } from "react-router-dom";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     password: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement login logic
-    console.log("Login attempt:", formData);
+    setIsLoading(true);
+    setError("");
+
+    try {
+      const success = await login(formData.email, formData.password);
+
+      if (success) {
+        // Redirect to admin if admin user, otherwise to home
+        if (formData.email === "admin@helldivers.com") {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
+      } else {
+        setError("Invalid email or password");
+      }
+    } catch (err) {
+      setError("Login failed. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
