@@ -62,12 +62,7 @@ const mockOrders: Order[] = [
   }
 ];
 
-const mockServices: Service[] = [
-  { id: "1", name: "Level Boost", price: 29.99, active: true, orders: 45 },
-  { id: "2", name: "Planet Liberation", price: 49.99, active: true, orders: 23 },
-  { id: "3", name: "Difficulty Unlock", price: 19.99, active: true, orders: 67 },
-  { id: "4", name: "Super Sample Farming", price: 34.99, active: false, orders: 12 }
-];
+const mockServices: Service[] = [];
 
 export default function AdminDashboard() {
   const [orders] = useState<Order[]>(mockOrders);
