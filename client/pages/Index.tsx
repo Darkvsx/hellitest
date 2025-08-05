@@ -88,13 +88,13 @@ export default function Index() {
               <Link to="#services" className="text-muted-foreground hover:text-primary transition-colors font-medium">
                 Services
               </Link>
-              <Link to="#bundles" className="text-muted-foreground hover:text-primary transition-colors font-medium">
+              <Link to="/bundles" className="text-muted-foreground hover:text-primary transition-colors font-medium">
                 Bundles
               </Link>
-              <Link to="#about" className="text-muted-foreground hover:text-primary transition-colors font-medium">
+              <Link to="/about" className="text-muted-foreground hover:text-primary transition-colors font-medium">
                 About
               </Link>
-              <Link to="#faq" className="text-muted-foreground hover:text-primary transition-colors font-medium">
+              <Link to="/faq" className="text-muted-foreground hover:text-primary transition-colors font-medium">
                 FAQ
               </Link>
             </div>
