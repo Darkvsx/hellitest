@@ -193,64 +193,81 @@ export default function Index() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {boostingServices.map((service) => (
-              <Card key={service.id} className="relative overflow-hidden hover:shadow-lg transition-shadow">
-                {service.popular && (
-                  <div className="absolute top-4 right-4">
-                    <Badge className="bg-accent text-accent-foreground">
-                      <Star className="w-3 h-3 mr-1" />
-                      Popular
-                    </Badge>
-                  </div>
-                )}
-                <CardHeader>
-                  <CardTitle className="text-xl">{service.title}</CardTitle>
-                  <CardDescription>{service.description}</CardDescription>
-                  <div className="flex items-center gap-2 pt-2">
-                    <span className="text-2xl font-bold text-primary">
-                      ${service.price}
-                    </span>
-                    {service.originalPrice && (
-                      <span className="text-sm text-muted-foreground line-through">
-                        ${service.originalPrice}
+          {boostingServices.length === 0 ? (
+            <div className="text-center py-16">
+              <div className="w-16 h-16 bg-muted rounded-lg flex items-center justify-center mx-auto mb-6">
+                <Target className="w-8 h-8 text-muted-foreground" />
+              </div>
+              <h3 className="text-2xl font-semibold mb-4">Services Coming Soon</h3>
+              <p className="text-muted-foreground max-w-md mx-auto mb-6">
+                We're currently setting up our boosting services. Check back soon for amazing Helldivers 2 boosting options!
+              </p>
+              <Button variant="outline" asChild>
+                <Link to="/admin">
+                  Admin Panel
+                </Link>
+              </Button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {boostingServices.map((service) => (
+                <Card key={service.id} className="relative overflow-hidden hover:shadow-lg transition-shadow">
+                  {service.popular && (
+                    <div className="absolute top-4 right-4">
+                      <Badge className="bg-accent text-accent-foreground">
+                        <Star className="w-3 h-3 mr-1" />
+                        Popular
+                      </Badge>
+                    </div>
+                  )}
+                  <CardHeader>
+                    <CardTitle className="text-xl">{service.title}</CardTitle>
+                    <CardDescription>{service.description}</CardDescription>
+                    <div className="flex items-center gap-2 pt-2">
+                      <span className="text-2xl font-bold text-primary">
+                        ${service.price}
                       </span>
-                    )}
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Duration:</span>
-                      <span className="font-medium">{service.duration}</span>
+                      {service.originalPrice && (
+                        <span className="text-sm text-muted-foreground line-through">
+                          ${service.originalPrice}
+                        </span>
+                      )}
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Difficulty:</span>
-                      <span className="font-medium">{service.difficulty}</span>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Duration:</span>
+                        <span className="font-medium">{service.duration}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Difficulty:</span>
+                        <span className="font-medium">{service.difficulty}</span>
+                      </div>
+                      <div className="space-y-2">
+                        <h4 className="font-medium text-sm">What's Included:</h4>
+                        <ul className="space-y-1">
+                          {service.features.map((feature, index) => (
+                            <li key={index} className="text-sm text-muted-foreground flex items-center">
+                              <div className="w-1.5 h-1.5 bg-primary rounded-full mr-2" />
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <Button
+                        className="w-full"
+                        onClick={() => addToCart(service.id)}
+                      >
+                        <ShoppingCart className="w-4 h-4 mr-2" />
+                        Add to Cart
+                      </Button>
                     </div>
-                    <div className="space-y-2">
-                      <h4 className="font-medium text-sm">What's Included:</h4>
-                      <ul className="space-y-1">
-                        {service.features.map((feature, index) => (
-                          <li key={index} className="text-sm text-muted-foreground flex items-center">
-                            <div className="w-1.5 h-1.5 bg-primary rounded-full mr-2" />
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <Button 
-                      className="w-full" 
-                      onClick={() => addToCart(service.id)}
-                    >
-                      <ShoppingCart className="w-4 h-4 mr-2" />
-                      Add to Cart
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
