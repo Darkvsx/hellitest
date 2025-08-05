@@ -312,6 +312,13 @@ export default function AdminDashboard() {
           </TabsContent>
         </Tabs>
       </div>
+
+      <ServiceModal
+        isOpen={isServiceModalOpen}
+        onClose={() => setIsServiceModalOpen(false)}
+        onSave={handleSaveService}
+        service={editingService}
+      />
     </div>
   );
 }
