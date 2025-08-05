@@ -14,6 +14,7 @@ export default function Index() {
   const { isAuthenticated, isAdmin, user, logout } = useAuth();
   const { services } = useServices();
   const { addToCart, getCartItemCount } = useCart();
+  const { toast } = useToast();
 
   // Only show active services on homepage
   const activeServices = services.filter(service => service.active);
@@ -21,6 +22,10 @@ export default function Index() {
 
   const handleAddToCart = (service: any) => {
     addToCart(service);
+    toast({
+      title: "Added to cart!",
+      description: `${service.title} has been added to your cart.`,
+    });
   };
 
   return (
