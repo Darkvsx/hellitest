@@ -23,6 +23,7 @@ const boostingServices: BoostingService[] = [];
 export default function Index() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartItems, setCartItems] = useState<string[]>([]);
+  const { isAuthenticated, isAdmin, user, logout } = useAuth();
 
   const addToCart = (serviceId: string) => {
     setCartItems(prev => [...prev, serviceId]);
