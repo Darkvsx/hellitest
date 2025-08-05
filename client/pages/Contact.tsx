@@ -388,10 +388,18 @@ export default function Contact() {
                     <p className="text-sm text-muted-foreground mb-3">
                       For payment problems, security concerns, or account access issues, contact us immediately via live chat.
                     </p>
-                    <Button size="sm" variant="outline" className="border-red-500/20 hover:bg-red-500/10">
-                      <MessageSquare className="w-4 h-4 mr-2" />
-                      Emergency Chat
-                    </Button>
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      <Button size="sm" variant="outline" className="border-red-500/20 hover:bg-red-500/10">
+                        <MessageSquare className="w-4 h-4 mr-2" />
+                        Emergency Chat
+                      </Button>
+                      <Button size="sm" variant="outline" className="border-red-500/20 hover:bg-red-500/10" asChild>
+                        <a href="https://discord.gg/helldivers2boost" target="_blank" rel="noopener noreferrer">
+                          <MessageSquare className="w-4 h-4 mr-2" />
+                          Discord Support
+                        </a>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </CardContent>
