@@ -1,4 +1,6 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { supabase } from '../lib/supabase';
+import type { User as SupabaseUser } from '@supabase/supabase-js';
 
 interface User {
   id: string;
@@ -7,9 +9,16 @@ interface User {
   role: "user" | "admin";
 }
 
+interface AuthState {
+  user: User | null;
+  loading: boolean;
+}
+
 interface AuthContextType {
   user: User | null;
+  loading: boolean;
   login: (email: string, password: string) => Promise<boolean>;
+  register: (email: string, password: string, username: string) => Promise<boolean>;
   logout: () => void;
   isAuthenticated: boolean;
   isAdmin: boolean;
@@ -18,39 +27,112 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [authState, setAuthState] = useState<AuthState>({
+    user: null,
+    loading: true
+  });
+
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user) {
+        fetchUserProfile(session.user);
+      } else {
+        setAuthState({ user: null, loading: false });
+      }
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (session?.user) {
+          await fetchUserProfile(session.user);
+        } else {
+          setAuthState({ user: null, loading: false });
+        }
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const fetchUserProfile = async (supabaseUser: SupabaseUser) => {
+    try {
+      const { data: profile, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', supabaseUser.id)
+        .single();
+
+      if (error && error.code !== 'PGRST116') {
+        console.error('Error fetching profile:', error);
+        setAuthState({ user: null, loading: false });
+        return;
+      }
+
+      const user: User = {
+        id: supabaseUser.id,
+        username: profile?.username || supabaseUser.email?.split('@')[0] || 'User',
+        email: supabaseUser.email || '',
+        role: profile?.role || 'user'
+      };
+
+      setAuthState({ user, loading: false });
+    } catch (error) {
+      console.error('Error in fetchUserProfile:', error);
+      setAuthState({ user: null, loading: false });
+    }
+  };
 
   const login = async (email: string, password: string): Promise<boolean> => {
-    // TODO: Replace with actual API call
-    // For now, simulate admin login
-    if (email === "admin@helldivers.com" && password === "admin123") {
-      setUser({
-        id: "1",
-        username: "admin",
-        email: "admin@helldivers.com",
-        role: "admin",
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
       });
-      return true;
-    }
 
-    // Simulate regular user login
-    if (email === "user@example.com" && password === "password") {
-      setUser({
-        id: "2",
-        username: "user",
-        email: "user@example.com",
-        role: "user",
-      });
-      return true;
-    }
+      if (error) {
+        console.error('Login error:', error.message);
+        return false;
+      }
 
-    return false;
+      return !!data.user;
+    } catch (error) {
+      console.error('Login error:', error);
+      return false;
+    }
   };
 
-  const logout = () => {
-    setUser(null);
+  const register = async (email: string, password: string, username: string): Promise<boolean> => {
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            username
+          }
+        }
+      });
+
+      if (error) {
+        console.error('Registration error:', error.message);
+        return false;
+      }
+
+      return !!data.user;
+    } catch (error) {
+      console.error('Registration error:', error);
+      return false;
+    }
   };
 
+  const logout = async () => {
+    await supabase.auth.signOut();
+    setAuthState({ user: null, loading: false });
+  };
+
+  const { user, loading } = authState;
   const isAuthenticated = user !== null;
   const isAdmin = user?.role === "admin";
 
@@ -58,7 +140,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     <AuthContext.Provider
       value={{
         user,
+        loading,
         login,
+        register,
         logout,
         isAuthenticated,
         isAdmin,
