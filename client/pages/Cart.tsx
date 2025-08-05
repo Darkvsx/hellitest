@@ -173,9 +173,11 @@ export default function Cart() {
                 </div>
 
                 <div className="space-y-3 pt-4">
-                  <Button className="w-full" size="lg">
-                    <CreditCard className="w-4 h-4 mr-2" />
-                    Proceed to Checkout
+                  <Button className="w-full" size="lg" asChild>
+                    <Link to="/checkout">
+                      <CreditCard className="w-4 h-4 mr-2" />
+                      Proceed to Checkout
+                    </Link>
                   </Button>
                   
                   <div className="text-center">
