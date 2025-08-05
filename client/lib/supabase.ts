@@ -3,6 +3,13 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://jrjpprqqhdkxtmgzqpik.supabase.co'
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpyanBwcnFxaGRreHRtZ3pxcGlrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2MDIxNzgsImV4cCI6MjA1MDE3ODE3OH0.RjhOJyFqxlxQ7kkcdWGc3fvyN7vdSxRgxtCY9bPSb_I'
 
+console.log('Supabase Config:', {
+  url: supabaseUrl,
+  keyLength: supabaseAnonKey.length,
+  hasEnvUrl: !!import.meta.env.VITE_SUPABASE_URL,
+  hasEnvKey: !!import.meta.env.VITE_SUPABASE_ANON_KEY
+});
+
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     autoRefreshToken: true,
@@ -10,6 +17,33 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     detectSessionInUrl: true
   }
 })
+
+// Test connection immediately
+let connectionTested = false;
+export let isSupabaseAvailable = true;
+
+export async function testConnection() {
+  if (connectionTested) return isSupabaseAvailable;
+
+  try {
+    console.log('Testing Supabase connection...');
+    const { error } = await supabase.from('profiles').select('count', { count: 'exact' });
+
+    if (error) {
+      console.error('Supabase connection failed:', error);
+      isSupabaseAvailable = false;
+    } else {
+      console.log('Supabase connection successful');
+      isSupabaseAvailable = true;
+    }
+  } catch (err) {
+    console.error('Supabase connection test failed:', err);
+    isSupabaseAvailable = false;
+  }
+
+  connectionTested = true;
+  return isSupabaseAvailable;
+}
 
 // Database types
 export interface Database {
