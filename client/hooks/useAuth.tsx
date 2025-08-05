@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { supabase } from '../lib/supabase';
+import { supabase, testConnection, isSupabaseAvailable } from '../lib/supabase';
+import { MockAuth } from '../lib/mockAuth';
 import type { User as SupabaseUser } from '@supabase/supabase-js';
 
 interface User {
@@ -31,29 +32,82 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     user: null,
     loading: true
   });
+  const [useMockAuth, setUseMockAuth] = useState(false);
 
   useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user) {
-        fetchUserProfile(session.user);
+    const initializeAuth = async () => {
+      // Test Supabase connection first
+      const connectionAvailable = await testConnection();
+      setUseMockAuth(!connectionAvailable);
+
+      if (connectionAvailable) {
+        // Use Supabase auth
+        try {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session?.user) {
+            await fetchUserProfile(session.user);
+          } else {
+            setAuthState({ user: null, loading: false });
+          }
+        } catch (error) {
+          console.error('Supabase auth error, falling back to mock:', error);
+          setUseMockAuth(true);
+          await initializeMockAuth();
+        }
+      } else {
+        // Use mock auth
+        await initializeMockAuth();
+      }
+    };
+
+    const initializeMockAuth = async () => {
+      console.log('Using mock authentication system');
+      const { user } = await MockAuth.getSession();
+      if (user) {
+        const authUser: User = {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          role: user.role
+        };
+        setAuthState({ user: authUser, loading: false });
       } else {
         setAuthState({ user: null, loading: false });
       }
-    });
+    };
 
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+    initializeAuth();
+
+    // Set up auth state change listener
+    let subscription: any;
+    if (!useMockAuth && isSupabaseAvailable) {
+      const { data } = supabase.auth.onAuthStateChange(
+        async (event, session) => {
+          if (session?.user) {
+            await fetchUserProfile(session.user);
+          } else {
+            setAuthState({ user: null, loading: false });
+          }
+        }
+      );
+      subscription = data.subscription;
+    } else {
+      subscription = MockAuth.onAuthStateChange(async (event, session) => {
         if (session?.user) {
-          await fetchUserProfile(session.user);
+          const authUser: User = {
+            id: session.user.id,
+            username: session.user.username,
+            email: session.user.email,
+            role: session.user.role
+          };
+          setAuthState({ user: authUser, loading: false });
         } else {
           setAuthState({ user: null, loading: false });
         }
-      }
-    );
+      }).data.subscription;
+    }
 
-    return () => subscription.unsubscribe();
+    return () => subscription?.unsubscribe();
   }, []);
 
   const fetchUserProfile = async (supabaseUser: SupabaseUser) => {
