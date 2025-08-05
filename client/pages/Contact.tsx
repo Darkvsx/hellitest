@@ -147,19 +147,38 @@ export default function Contact() {
             </CardContent>
           </Card>
 
-          <Card className="border border-border/50 hover:border-primary/30 transition-colors cursor-pointer group">
-            <CardContent className="p-6 text-center">
-              <div className="w-12 h-12 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                <HelpCircle className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-semibold mb-2">FAQ</h3>
-              <p className="text-sm text-muted-foreground mb-3">
-                Find answers to common questions
-              </p>
-              <Badge className="bg-purple-500/20 text-purple-700">
-                Instant answers
-              </Badge>
-            </CardContent>
+          <Card className="border border-border/50 hover:border-primary/30 transition-colors cursor-pointer group" asChild>
+            <Link to="/faq">
+              <CardContent className="p-6 text-center">
+                <div className="w-12 h-12 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                  <HelpCircle className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="font-semibold mb-2">FAQ</h3>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Find answers to common questions
+                </p>
+                <Badge className="bg-purple-500/20 text-purple-700">
+                  Instant answers
+                </Badge>
+              </CardContent>
+            </Link>
+          </Card>
+
+          <Card className="border border-border/50 hover:border-primary/30 transition-colors cursor-pointer group" asChild>
+            <a href="https://discord.gg/helldivers2boost" target="_blank" rel="noopener noreferrer">
+              <CardContent className="p-6 text-center">
+                <div className="w-12 h-12 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                  <MessageSquare className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="font-semibold mb-2">Discord</h3>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Join our community server
+                </p>
+                <Badge className="bg-indigo-500/20 text-indigo-700">
+                  Active community
+                </Badge>
+              </CardContent>
+            </a>
           </Card>
         </div>
 
