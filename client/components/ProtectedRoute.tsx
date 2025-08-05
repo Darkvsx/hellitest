@@ -1,15 +1,18 @@
-import { ReactNode } from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '@/hooks/useAuth';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield, AlertTriangle } from 'lucide-react';
+import { ReactNode } from "react";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Shield, AlertTriangle } from "lucide-react";
 
 interface ProtectedRouteProps {
   children: ReactNode;
   requireAdmin?: boolean;
 }
 
-export function ProtectedRoute({ children, requireAdmin = false }: ProtectedRouteProps) {
+export function ProtectedRoute({
+  children,
+  requireAdmin = false,
+}: ProtectedRouteProps) {
   const { isAuthenticated, isAdmin } = useAuth();
 
   if (!isAuthenticated) {
@@ -28,7 +31,8 @@ export function ProtectedRoute({ children, requireAdmin = false }: ProtectedRout
           </CardHeader>
           <CardContent className="text-center">
             <p className="text-muted-foreground mb-6">
-              You don't have permission to access this page. Admin privileges are required.
+              You don't have permission to access this page. Admin privileges
+              are required.
             </p>
             <div className="flex items-center justify-center text-sm text-muted-foreground">
               <Shield className="w-4 h-4 mr-2" />

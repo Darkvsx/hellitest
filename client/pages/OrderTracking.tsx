@@ -3,17 +3,23 @@ import { Link, useParams } from "react-router-dom";
 import { useOrders } from "@/hooks/useOrders";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { 
-  ArrowLeft, 
-  Package, 
-  Clock, 
-  CheckCircle, 
+import {
+  ArrowLeft,
+  Package,
+  Clock,
+  CheckCircle,
   AlertCircle,
   MessageSquare,
   Send,
@@ -22,15 +28,15 @@ import {
   Target,
   Trophy,
   Star,
-  Eye
+  Eye,
 } from "lucide-react";
 
 export default function OrderTracking() {
   const { orderId } = useParams<{ orderId: string }>();
   const { getOrder, addOrderMessage } = useOrders();
   const { user } = useAuth();
-  const [order, setOrder] = useState(getOrder(orderId || ''));
-  const [newMessage, setNewMessage] = useState('');
+  const [order, setOrder] = useState(getOrder(orderId || ""));
+  const [newMessage, setNewMessage] = useState("");
   const [showMessages, setShowMessages] = useState(false);
 
   useEffect(() => {
@@ -47,7 +53,8 @@ export default function OrderTracking() {
             <AlertCircle className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
             <h2 className="text-xl font-semibold mb-2">Order Not Found</h2>
             <p className="text-muted-foreground mb-6">
-              The order ID you're looking for doesn't exist or you don't have permission to view it.
+              The order ID you're looking for doesn't exist or you don't have
+              permission to view it.
             </p>
             <Link to="/">
               <Button>Back to Home</Button>
@@ -60,31 +67,43 @@ export default function OrderTracking() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'pending': return 'bg-yellow-500/20 text-yellow-700 dark:text-yellow-400';
-      case 'processing': return 'bg-blue-500/20 text-blue-700 dark:text-blue-400';
-      case 'in-progress': return 'bg-purple-500/20 text-purple-700 dark:text-purple-400';
-      case 'completed': return 'bg-green-500/20 text-green-700 dark:text-green-400';
-      case 'cancelled': return 'bg-red-500/20 text-red-700 dark:text-red-400';
-      default: return 'bg-gray-500/20 text-gray-700 dark:text-gray-400';
+      case "pending":
+        return "bg-yellow-500/20 text-yellow-700 dark:text-yellow-400";
+      case "processing":
+        return "bg-blue-500/20 text-blue-700 dark:text-blue-400";
+      case "in-progress":
+        return "bg-purple-500/20 text-purple-700 dark:text-purple-400";
+      case "completed":
+        return "bg-green-500/20 text-green-700 dark:text-green-400";
+      case "cancelled":
+        return "bg-red-500/20 text-red-700 dark:text-red-400";
+      default:
+        return "bg-gray-500/20 text-gray-700 dark:text-gray-400";
     }
   };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'pending': return <Clock className="w-4 h-4" />;
-      case 'processing': return <Package className="w-4 h-4" />;
-      case 'in-progress': return <Gamepad2 className="w-4 h-4" />;
-      case 'completed': return <Trophy className="w-4 h-4" />;
-      case 'cancelled': return <AlertCircle className="w-4 h-4" />;
-      default: return <Package className="w-4 h-4" />;
+      case "pending":
+        return <Clock className="w-4 h-4" />;
+      case "processing":
+        return <Package className="w-4 h-4" />;
+      case "in-progress":
+        return <Gamepad2 className="w-4 h-4" />;
+      case "completed":
+        return <Trophy className="w-4 h-4" />;
+      case "cancelled":
+        return <AlertCircle className="w-4 h-4" />;
+      default:
+        return <Package className="w-4 h-4" />;
     }
   };
 
   const sendMessage = () => {
     if (!newMessage.trim() || !user) return;
-    
-    addOrderMessage(order.id, 'customer', newMessage);
-    setNewMessage('');
+
+    addOrderMessage(order.id, "customer", newMessage);
+    setNewMessage("");
     setOrder(getOrder(order.id));
   };
 
@@ -94,12 +113,18 @@ export default function OrderTracking() {
 
   const getProgressPercentage = () => {
     switch (order.status) {
-      case 'pending': return 10;
-      case 'processing': return 25;
-      case 'in-progress': return order.progress || 50;
-      case 'completed': return 100;
-      case 'cancelled': return 0;
-      default: return 0;
+      case "pending":
+        return 10;
+      case "processing":
+        return 25;
+      case "in-progress":
+        return order.progress || 50;
+      case "completed":
+        return 100;
+      case "cancelled":
+        return 0;
+      default:
+        return 0;
     }
   };
 
@@ -116,7 +141,7 @@ export default function OrderTracking() {
               </Button>
             </Link>
           </div>
-          
+
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
               <h1 className="text-3xl font-bold mb-2">Order #{order.id}</h1>
@@ -124,9 +149,11 @@ export default function OrderTracking() {
                 Placed on {formatDate(order.createdAt)}
               </p>
             </div>
-            
+
             <div className="mt-4 md:mt-0">
-              <Badge className={`text-sm px-3 py-1 ${getStatusColor(order.status)}`}>
+              <Badge
+                className={`text-sm px-3 py-1 ${getStatusColor(order.status)}`}
+              >
                 {getStatusIcon(order.status)}
                 <span className="ml-2 capitalize">{order.status}</span>
               </Badge>
@@ -154,24 +181,34 @@ export default function OrderTracking() {
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <span className="text-sm font-medium">Progress</span>
-                    <span className="text-sm text-muted-foreground">{getProgressPercentage()}%</span>
+                    <span className="text-sm text-muted-foreground">
+                      {getProgressPercentage()}%
+                    </span>
                   </div>
                   <Progress value={getProgressPercentage()} className="h-3" />
-                  
+
                   {order.assignedBooster && (
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Assigned Booster:</span>
+                      <span className="text-muted-foreground">
+                        Assigned Booster:
+                      </span>
                       <div className="flex items-center">
                         <User className="w-4 h-4 mr-1 text-primary" />
-                        <span className="font-medium text-primary">{order.assignedBooster}</span>
+                        <span className="font-medium text-primary">
+                          {order.assignedBooster}
+                        </span>
                       </div>
                     </div>
                   )}
-                  
+
                   {order.estimatedCompletion && (
                     <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Estimated Completion:</span>
-                      <span className="font-medium">{formatDate(order.estimatedCompletion)}</span>
+                      <span className="text-muted-foreground">
+                        Estimated Completion:
+                      </span>
+                      <span className="font-medium">
+                        {formatDate(order.estimatedCompletion)}
+                      </span>
                     </div>
                   )}
                 </div>
@@ -218,9 +255,16 @@ export default function OrderTracking() {
                   <div className="flex items-center">
                     <MessageSquare className="w-5 h-5 mr-2" />
                     Messages
-                    {order.messages.filter(m => !m.isRead && m.from !== 'customer').length > 0 && (
+                    {order.messages.filter(
+                      (m) => !m.isRead && m.from !== "customer",
+                    ).length > 0 && (
                       <Badge className="ml-2 bg-red-500/20 text-red-700">
-                        {order.messages.filter(m => !m.isRead && m.from !== 'customer').length} new
+                        {
+                          order.messages.filter(
+                            (m) => !m.isRead && m.from !== "customer",
+                          ).length
+                        }{" "}
+                        new
                       </Badge>
                     )}
                   </div>
@@ -230,31 +274,34 @@ export default function OrderTracking() {
                     onClick={() => setShowMessages(!showMessages)}
                   >
                     <Eye className="w-4 h-4 mr-2" />
-                    {showMessages ? 'Hide' : 'Show'} Messages
+                    {showMessages ? "Hide" : "Show"} Messages
                   </Button>
                 </CardTitle>
               </CardHeader>
-              
+
               {showMessages && (
                 <CardContent>
                   <div className="space-y-4 max-h-60 overflow-y-auto mb-4">
                     {order.messages.length === 0 ? (
                       <p className="text-sm text-muted-foreground text-center py-4">
-                        No messages yet. Send a message to communicate with our team.
+                        No messages yet. Send a message to communicate with our
+                        team.
                       </p>
                     ) : (
                       order.messages.map((message) => (
                         <div
                           key={message.id}
                           className={`p-3 rounded-lg ${
-                            message.from === 'customer'
-                              ? 'bg-primary/10 ml-8'
-                              : 'bg-muted mr-8'
+                            message.from === "customer"
+                              ? "bg-primary/10 ml-8"
+                              : "bg-muted mr-8"
                           }`}
                         >
                           <div className="flex items-center justify-between mb-1">
                             <span className="text-xs font-medium capitalize">
-                              {message.from === 'customer' ? 'You' : message.from}
+                              {message.from === "customer"
+                                ? "You"
+                                : message.from}
                             </span>
                             <span className="text-xs text-muted-foreground">
                               {formatDate(message.timestamp)}
@@ -301,21 +348,32 @@ export default function OrderTracking() {
                   <div key={index} className="flex justify-between items-start">
                     <div className="flex-1">
                       <p className="font-medium text-sm">{service.name}</p>
-                      <p className="text-xs text-muted-foreground">Qty: {service.quantity}</p>
+                      <p className="text-xs text-muted-foreground">
+                        Qty: {service.quantity}
+                      </p>
                     </div>
-                    <span className="font-medium">${(service.price * service.quantity).toFixed(2)}</span>
+                    <span className="font-medium">
+                      ${(service.price * service.quantity).toFixed(2)}
+                    </span>
                   </div>
                 ))}
-                
+
                 <Separator />
-                
+
                 <div className="flex justify-between items-center font-semibold">
                   <span>Total</span>
                   <span>${order.totalAmount.toFixed(2)}</span>
                 </div>
-                
+
                 <div className="pt-2">
-                  <Badge variant="outline" className={order.paymentStatus === 'paid' ? 'text-green-700 border-green-200' : 'text-yellow-700 border-yellow-200'}>
+                  <Badge
+                    variant="outline"
+                    className={
+                      order.paymentStatus === "paid"
+                        ? "text-green-700 border-green-200"
+                        : "text-yellow-700 border-yellow-200"
+                    }
+                  >
                     Payment: {order.paymentStatus}
                   </Badge>
                 </div>
@@ -338,8 +396,12 @@ export default function OrderTracking() {
                 </div>
                 {order.notes && (
                   <div>
-                    <p className="text-sm text-muted-foreground">Special Notes</p>
-                    <p className="font-medium text-sm bg-muted p-2 rounded">{order.notes}</p>
+                    <p className="text-sm text-muted-foreground">
+                      Special Notes
+                    </p>
+                    <p className="font-medium text-sm bg-muted p-2 rounded">
+                      {order.notes}
+                    </p>
                   </div>
                 )}
               </CardContent>
@@ -357,7 +419,7 @@ export default function OrderTracking() {
                     Contact Support
                   </Link>
                 </Button>
-                
+
                 <Button variant="outline" className="w-full" asChild>
                   <Link to="/faq">
                     <AlertCircle className="w-4 h-4 mr-2" />

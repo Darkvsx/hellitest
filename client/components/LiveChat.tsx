@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+import { useState, useEffect, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   MessageSquare,
   X,
@@ -9,12 +9,12 @@ import {
   Minimize2,
   User,
   Bot,
-  Circle
-} from 'lucide-react';
+  Circle,
+} from "lucide-react";
 
 interface ChatMessage {
   id: string;
-  from: 'user' | 'agent' | 'bot';
+  from: "user" | "agent" | "bot";
   message: string;
   timestamp: string;
   agentName?: string;
@@ -22,11 +22,12 @@ interface ChatMessage {
 
 const initialMessages: ChatMessage[] = [
   {
-    id: '1',
-    from: 'bot',
-    message: 'Hello! Welcome to Helldivers Boost support. How can I help you today?',
-    timestamp: new Date().toISOString()
-  }
+    id: "1",
+    from: "bot",
+    message:
+      "Hello! Welcome to Helldivers Boost support. How can I help you today?",
+    timestamp: new Date().toISOString(),
+  },
 ];
 
 const autoResponses = [
@@ -34,20 +35,20 @@ const autoResponses = [
   "I understand you need help. Let me connect you with our live support team.",
   "For immediate assistance with orders, please provide your order ID.",
   "Our team is online and ready to help! What specific service are you interested in?",
-  "You can also join our Discord community for faster support: https://discord.gg/helldivers2boost"
+  "You can also join our Discord community for faster support: https://discord.gg/helldivers2boost",
 ];
 
 export function LiveChat() {
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
-  const [inputMessage, setInputMessage] = useState('');
+  const [inputMessage, setInputMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -59,30 +60,31 @@ export function LiveChat() {
 
     const userMessage: ChatMessage = {
       id: Date.now().toString(),
-      from: 'user',
+      from: "user",
       message: inputMessage,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
-    setInputMessage('');
+    setMessages((prev) => [...prev, userMessage]);
+    setInputMessage("");
     setIsTyping(true);
 
     // Simulate agent response
     setTimeout(() => {
       const agentMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
-        from: 'agent',
-        message: autoResponses[Math.floor(Math.random() * autoResponses.length)],
+        from: "agent",
+        message:
+          autoResponses[Math.floor(Math.random() * autoResponses.length)],
         timestamp: new Date().toISOString(),
-        agentName: 'Sarah'
+        agentName: "Sarah",
       };
-      
-      setMessages(prev => [...prev, agentMessage]);
+
+      setMessages((prev) => [...prev, agentMessage]);
       setIsTyping(false);
-      
+
       if (!isOpen) {
-        setUnreadCount(prev => prev + 1);
+        setUnreadCount((prev) => prev + 1);
       }
     }, 2000);
   };
@@ -95,7 +97,10 @@ export function LiveChat() {
   };
 
   const formatTime = (timestamp: string) => {
-    return new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return new Date(timestamp).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   };
 
   if (!isOpen) {
@@ -118,7 +123,9 @@ export function LiveChat() {
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
-      <Card className={`w-80 transition-all duration-300 shadow-2xl ${isMinimized ? 'h-14' : 'h-96'} border-primary/20`}>
+      <Card
+        className={`w-80 transition-all duration-300 shadow-2xl ${isMinimized ? "h-14" : "h-96"} border-primary/20`}
+      >
         <CardHeader className="p-3 bg-gradient-to-r from-primary to-blue-600 text-white rounded-t-lg">
           <div className="flex items-center justify-between">
             <CardTitle className="text-sm flex items-center">
@@ -157,23 +164,25 @@ export function LiveChat() {
                 {messages.map((message) => (
                   <div
                     key={message.id}
-                    className={`flex ${message.from === 'user' ? 'justify-end' : 'justify-start'}`}
+                    className={`flex ${message.from === "user" ? "justify-end" : "justify-start"}`}
                   >
-                    <div className={`max-w-[80%] ${message.from === 'user' ? 'order-2' : 'order-1'}`}>
+                    <div
+                      className={`max-w-[80%] ${message.from === "user" ? "order-2" : "order-1"}`}
+                    >
                       <div
                         className={`rounded-lg p-2 text-sm ${
-                          message.from === 'user'
-                            ? 'bg-primary text-white'
-                            : 'bg-muted text-foreground'
+                          message.from === "user"
+                            ? "bg-primary text-white"
+                            : "bg-muted text-foreground"
                         }`}
                       >
-                        {message.from === 'agent' && (
+                        {message.from === "agent" && (
                           <div className="text-xs opacity-75 mb-1 flex items-center">
                             <User className="w-3 h-3 mr-1" />
                             {message.agentName}
                           </div>
                         )}
-                        {message.from === 'bot' && (
+                        {message.from === "bot" && (
                           <div className="text-xs opacity-75 mb-1 flex items-center">
                             <Bot className="w-3 h-3 mr-1" />
                             Support Bot
@@ -187,7 +196,7 @@ export function LiveChat() {
                     </div>
                   </div>
                 ))}
-                
+
                 {isTyping && (
                   <div className="flex justify-start">
                     <div className="bg-muted text-foreground rounded-lg p-2 text-sm">
@@ -199,7 +208,7 @@ export function LiveChat() {
                     </div>
                   </div>
                 )}
-                
+
                 <div ref={messagesEndRef} />
               </div>
 
@@ -210,7 +219,7 @@ export function LiveChat() {
                     onChange={(e) => setInputMessage(e.target.value)}
                     placeholder="Type your message..."
                     className="flex-1 text-sm"
-                    onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                    onKeyPress={(e) => e.key === "Enter" && sendMessage()}
                   />
                   <Button
                     onClick={sendMessage}

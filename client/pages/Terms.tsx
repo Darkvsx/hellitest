@@ -17,22 +17,23 @@ export default function Terms() {
               </Button>
             </Link>
           </div>
-          
+
           <div className="text-center">
             <div className="inline-flex items-center bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
               <FileText className="w-4 h-4 mr-2" />
               Legal Document
             </div>
-            
+
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                 Terms of
               </span>
               <span className="bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
-                {" "}Service
+                {" "}
+                Service
               </span>
             </h1>
-            
+
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Last updated: January 15, 2024
             </p>
@@ -48,9 +49,12 @@ export default function Terms() {
               <div className="flex items-start space-x-3">
                 <AlertTriangle className="w-6 h-6 text-yellow-500 mt-0.5" />
                 <div>
-                  <h3 className="font-semibold text-yellow-700 dark:text-yellow-400 mb-2">Important Notice</h3>
+                  <h3 className="font-semibold text-yellow-700 dark:text-yellow-400 mb-2">
+                    Important Notice
+                  </h3>
                   <p className="text-sm text-muted-foreground">
-                    By using our services, you agree to these terms. Please read them carefully before placing an order.
+                    By using our services, you agree to these terms. Please read
+                    them carefully before placing an order.
                   </p>
                 </div>
               </div>
@@ -65,7 +69,9 @@ export default function Terms() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p>
-                  Helldivers Boost provides professional gaming assistance services for Helldivers 2. Our services include but are not limited to:
+                  Helldivers Boost provides professional gaming assistance
+                  services for Helldivers 2. Our services include but are not
+                  limited to:
                 </p>
                 <ul className="list-disc list-inside space-y-2 text-muted-foreground">
                   <li>Character level boosting</li>
@@ -84,20 +90,26 @@ export default function Terms() {
               <CardContent className="space-y-4">
                 <h4 className="font-semibold">2.1 Account Access</h4>
                 <p className="text-muted-foreground">
-                  To provide our services, you grant us temporary access to your gaming account. We use secure methods and VPN protection to ensure your account safety.
+                  To provide our services, you grant us temporary access to your
+                  gaming account. We use secure methods and VPN protection to
+                  ensure your account safety.
                 </p>
-                
+
                 <h4 className="font-semibold">2.2 Security Measures</h4>
                 <ul className="list-disc list-inside space-y-2 text-muted-foreground">
                   <li>We never change your account credentials</li>
                   <li>All sessions are protected with VPN technology</li>
                   <li>Your personal information is never accessed or stored</li>
-                  <li>We maintain detailed logs of all actions for transparency</li>
+                  <li>
+                    We maintain detailed logs of all actions for transparency
+                  </li>
                 </ul>
 
                 <h4 className="font-semibold">2.3 Account Responsibility</h4>
                 <p className="text-muted-foreground">
-                  You are responsible for ensuring your account is in good standing and not subject to any restrictions or bans before our service begins.
+                  You are responsible for ensuring your account is in good
+                  standing and not subject to any restrictions or bans before
+                  our service begins.
                 </p>
               </CardContent>
             </Card>
@@ -109,17 +121,22 @@ export default function Terms() {
               <CardContent className="space-y-4">
                 <h4 className="font-semibold">3.1 Estimated Timeframes</h4>
                 <p className="text-muted-foreground">
-                  All delivery times are estimates based on typical completion rates. Actual completion times may vary due to game updates, server issues, or other unforeseen circumstances.
+                  All delivery times are estimates based on typical completion
+                  rates. Actual completion times may vary due to game updates,
+                  server issues, or other unforeseen circumstances.
                 </p>
 
                 <h4 className="font-semibold">3.2 Progress Updates</h4>
                 <p className="text-muted-foreground">
-                  We provide regular progress updates through our tracking system and direct communication channels.
+                  We provide regular progress updates through our tracking
+                  system and direct communication channels.
                 </p>
 
                 <h4 className="font-semibold">3.3 Service Interruptions</h4>
                 <p className="text-muted-foreground">
-                  Service may be temporarily paused due to game maintenance, your request, or technical issues. These interruptions do not affect the final delivery timeframe.
+                  Service may be temporarily paused due to game maintenance,
+                  your request, or technical issues. These interruptions do not
+                  affect the final delivery timeframe.
                 </p>
               </CardContent>
             </Card>
@@ -131,20 +148,26 @@ export default function Terms() {
               <CardContent className="space-y-4">
                 <h4 className="font-semibold">4.1 Payment Processing</h4>
                 <p className="text-muted-foreground">
-                  All payments are processed securely through PayPal. Payment is required before service begins.
+                  All payments are processed securely through PayPal. Payment is
+                  required before service begins.
                 </p>
 
                 <h4 className="font-semibold">4.2 Refund Policy</h4>
                 <ul className="list-disc list-inside space-y-2 text-muted-foreground">
                   <li>Full refunds available before service begins</li>
-                  <li>Partial refunds may be available based on completion percentage</li>
+                  <li>
+                    Partial refunds may be available based on completion
+                    percentage
+                  </li>
                   <li>Refunds are processed within 5-7 business days</li>
                   <li>Technical issues on our end qualify for full refunds</li>
                 </ul>
 
                 <h4 className="font-semibold">4.3 Pricing</h4>
                 <p className="text-muted-foreground">
-                  Prices are clearly displayed on our website and may change without notice. The price you pay is the price displayed at the time of purchase.
+                  Prices are clearly displayed on our website and may change
+                  without notice. The price you pay is the price displayed at
+                  the time of purchase.
                 </p>
               </CardContent>
             </Card>
@@ -156,17 +179,22 @@ export default function Terms() {
               <CardContent className="space-y-4">
                 <h4 className="font-semibold">5.1 Account Information</h4>
                 <p className="text-muted-foreground">
-                  You must provide accurate and current account information. Any issues arising from incorrect information are your responsibility.
+                  You must provide accurate and current account information. Any
+                  issues arising from incorrect information are your
+                  responsibility.
                 </p>
 
                 <h4 className="font-semibold">5.2 Game Terms Compliance</h4>
                 <p className="text-muted-foreground">
-                  While we take every precaution to operate within game terms of service, you acknowledge that boosting services may carry inherent risks according to the game publisher's policies.
+                  While we take every precaution to operate within game terms of
+                  service, you acknowledge that boosting services may carry
+                  inherent risks according to the game publisher's policies.
                 </p>
 
                 <h4 className="font-semibold">5.3 Communication</h4>
                 <p className="text-muted-foreground">
-                  You agree to maintain open communication and respond to our requests for information or clarification in a timely manner.
+                  You agree to maintain open communication and respond to our
+                  requests for information or clarification in a timely manner.
                 </p>
               </CardContent>
             </Card>
@@ -177,17 +205,22 @@ export default function Terms() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-muted-foreground">
-                  Our liability is limited to the amount paid for services. We are not responsible for any indirect, incidental, or consequential damages.
+                  Our liability is limited to the amount paid for services. We
+                  are not responsible for any indirect, incidental, or
+                  consequential damages.
                 </p>
-                
+
                 <h4 className="font-semibold">6.1 Account Actions</h4>
                 <p className="text-muted-foreground">
-                  While we maintain the highest safety standards, we cannot guarantee protection against all possible account actions by game publishers.
+                  While we maintain the highest safety standards, we cannot
+                  guarantee protection against all possible account actions by
+                  game publishers.
                 </p>
 
                 <h4 className="font-semibold">6.2 Technical Issues</h4>
                 <p className="text-muted-foreground">
-                  We are not liable for issues caused by game updates, server problems, or other technical issues beyond our control.
+                  We are not liable for issues caused by game updates, server
+                  problems, or other technical issues beyond our control.
                 </p>
               </CardContent>
             </Card>
@@ -198,12 +231,16 @@ export default function Terms() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-muted-foreground">
-                  We collect and process only the minimum information necessary to provide our services. See our Privacy Policy for detailed information about data handling.
+                  We collect and process only the minimum information necessary
+                  to provide our services. See our Privacy Policy for detailed
+                  information about data handling.
                 </p>
-                
+
                 <h4 className="font-semibold">7.1 Information Security</h4>
                 <p className="text-muted-foreground">
-                  All customer information is encrypted and stored securely. We never share your information with third parties except as required to provide services.
+                  All customer information is encrypted and stored securely. We
+                  never share your information with third parties except as
+                  required to provide services.
                 </p>
               </CardContent>
             </Card>
@@ -214,7 +251,10 @@ export default function Terms() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-muted-foreground">
-                  We reserve the right to modify these terms at any time. Changes will be posted on this page with an updated date. Continued use of our services constitutes acceptance of modified terms.
+                  We reserve the right to modify these terms at any time.
+                  Changes will be posted on this page with an updated date.
+                  Continued use of our services constitutes acceptance of
+                  modified terms.
                 </p>
               </CardContent>
             </Card>
@@ -225,7 +265,8 @@ export default function Terms() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-muted-foreground">
-                  For questions about these terms or our services, please contact us:
+                  For questions about these terms or our services, please
+                  contact us:
                 </p>
                 <ul className="list-disc list-inside space-y-2 text-muted-foreground">
                   <li>Email: support@helldivers-boost.com</li>
@@ -240,9 +281,12 @@ export default function Terms() {
           <Card className="bg-gradient-to-r from-primary/10 to-blue-500/10 border border-primary/20">
             <CardContent className="p-8 text-center">
               <Shield className="w-16 h-16 text-primary mx-auto mb-6" />
-              <h3 className="text-2xl font-bold mb-4">Questions About Our Terms?</h3>
+              <h3 className="text-2xl font-bold mb-4">
+                Questions About Our Terms?
+              </h3>
               <p className="text-muted-foreground mb-6">
-                Our support team is available 24/7 to help clarify any terms or answer your questions.
+                Our support team is available 24/7 to help clarify any terms or
+                answer your questions.
               </p>
               <Link to="/contact">
                 <Button className="bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90">

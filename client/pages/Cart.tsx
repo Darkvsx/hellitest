@@ -4,15 +4,15 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { 
-  ShoppingCart, 
-  Plus, 
-  Minus, 
-  Trash2, 
-  ArrowLeft, 
+import {
+  ShoppingCart,
+  Plus,
+  Minus,
+  Trash2,
+  ArrowLeft,
   CreditCard,
   Shield,
-  Clock
+  Clock,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -20,7 +20,7 @@ export default function Cart() {
   const { cartItems, updateQuantity, removeFromCart, getCartTotal } = useCart();
 
   const handleUpdateQuantity = (serviceId: string, change: number) => {
-    const currentItem = cartItems.find(item => item.service.id === serviceId);
+    const currentItem = cartItems.find((item) => item.service.id === serviceId);
     if (currentItem) {
       updateQuantity(serviceId, Math.max(1, currentItem.quantity + change));
     }
@@ -50,14 +50,14 @@ export default function Cart() {
           <Card>
             <CardContent className="text-center py-16">
               <ShoppingCart className="w-16 h-16 mx-auto mb-4 text-muted-foreground opacity-50" />
-              <h2 className="text-2xl font-semibold mb-2">Your cart is empty</h2>
+              <h2 className="text-2xl font-semibold mb-2">
+                Your cart is empty
+              </h2>
               <p className="text-muted-foreground mb-6">
                 Add some boosting services to get started
               </p>
               <Link to="/">
-                <Button>
-                  Browse Services
-                </Button>
+                <Button>Browse Services</Button>
               </Link>
             </CardContent>
           </Card>
@@ -98,7 +98,9 @@ export default function Cart() {
                         </div>
 
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-medium text-foreground">{item.service.title}</h3>
+                          <h3 className="font-medium text-foreground">
+                            {item.service.title}
+                          </h3>
                           <div className="flex items-center space-x-2 mt-1">
                             <Badge variant="outline" className="text-xs">
                               <Clock className="w-3 h-3 mr-1" />
@@ -114,24 +116,34 @@ export default function Cart() {
                           <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => handleUpdateQuantity(item.service.id, -1)}
+                            onClick={() =>
+                              handleUpdateQuantity(item.service.id, -1)
+                            }
                             disabled={item.quantity <= 1}
                           >
                             <Minus className="w-3 h-3" />
                           </Button>
-                          <span className="w-8 text-center font-medium">{item.quantity}</span>
+                          <span className="w-8 text-center font-medium">
+                            {item.quantity}
+                          </span>
                           <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => handleUpdateQuantity(item.service.id, 1)}
+                            onClick={() =>
+                              handleUpdateQuantity(item.service.id, 1)
+                            }
                           >
                             <Plus className="w-3 h-3" />
                           </Button>
                         </div>
 
                         <div className="text-right">
-                          <p className="font-medium">${(item.service.price * item.quantity).toFixed(2)}</p>
-                          <p className="text-sm text-muted-foreground">${item.service.price} each</p>
+                          <p className="font-medium">
+                            ${(item.service.price * item.quantity).toFixed(2)}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            ${item.service.price} each
+                          </p>
                         </div>
 
                         <Button
@@ -143,7 +155,9 @@ export default function Cart() {
                           <Trash2 className="w-4 h-4" />
                         </Button>
                       </div>
-                      {index < cartItems.length - 1 && <Separator className="mt-6" />}
+                      {index < cartItems.length - 1 && (
+                        <Separator className="mt-6" />
+                      )}
                     </div>
                   ))}
                 </div>
@@ -179,7 +193,7 @@ export default function Cart() {
                       Proceed to Checkout
                     </Link>
                   </Button>
-                  
+
                   <div className="text-center">
                     <p className="text-xs text-muted-foreground">
                       Secure checkout with PayPal

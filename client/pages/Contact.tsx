@@ -1,18 +1,30 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { 
-  ArrowLeft, 
-  MessageSquare, 
-  Mail, 
-  Clock, 
+import {
+  ArrowLeft,
+  MessageSquare,
+  Mail,
+  Clock,
   Send,
   Phone,
   MapPin,
@@ -22,7 +34,7 @@ import {
   Users,
   AlertCircle,
   CheckCircle,
-  HelpCircle
+  HelpCircle,
 } from "lucide-react";
 
 const supportCategories = [
@@ -31,14 +43,30 @@ const supportCategories = [
   { value: "payment-problem", label: "Payment Problem" },
   { value: "account-support", label: "Account Support" },
   { value: "general-question", label: "General Question" },
-  { value: "feedback", label: "Feedback" }
+  { value: "feedback", label: "Feedback" },
 ];
 
 const urgencyLevels = [
-  { value: "low", label: "Low - General inquiry", color: "bg-green-500/20 text-green-700" },
-  { value: "medium", label: "Medium - Need assistance", color: "bg-yellow-500/20 text-yellow-700" },
-  { value: "high", label: "High - Order issue", color: "bg-orange-500/20 text-orange-700" },
-  { value: "urgent", label: "Urgent - Payment/Security", color: "bg-red-500/20 text-red-700" }
+  {
+    value: "low",
+    label: "Low - General inquiry",
+    color: "bg-green-500/20 text-green-700",
+  },
+  {
+    value: "medium",
+    label: "Medium - Need assistance",
+    color: "bg-yellow-500/20 text-yellow-700",
+  },
+  {
+    value: "high",
+    label: "High - Order issue",
+    color: "bg-orange-500/20 text-orange-700",
+  },
+  {
+    value: "urgent",
+    label: "Urgent - Payment/Security",
+    color: "bg-red-500/20 text-red-700",
+  },
 ];
 
 export default function Contact() {
@@ -49,7 +77,7 @@ export default function Contact() {
     category: "",
     urgency: "",
     orderId: "",
-    message: ""
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
@@ -59,7 +87,7 @@ export default function Contact() {
     setIsSubmitting(true);
 
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     toast({
       title: "Support ticket created!",
@@ -73,7 +101,7 @@ export default function Contact() {
       category: "",
       urgency: "",
       orderId: "",
-      message: ""
+      message: "",
     });
     setIsSubmitting(false);
   };
@@ -91,22 +119,23 @@ export default function Contact() {
               </Button>
             </Link>
           </div>
-          
+
           <div className="text-center">
             <div className="inline-flex items-center bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Headphones className="w-4 h-4 mr-2" />
               24/7 Support Available
             </div>
-            
+
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                 Contact
               </span>
               <span className="bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
-                {" "}Support
+                {" "}
+                Support
               </span>
             </h1>
-            
+
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Need help? Our expert support team is here to assist you 24/7
             </p>
@@ -147,7 +176,10 @@ export default function Contact() {
             </CardContent>
           </Card>
 
-          <Card className="border border-border/50 hover:border-primary/30 transition-colors cursor-pointer group" asChild>
+          <Card
+            className="border border-border/50 hover:border-primary/30 transition-colors cursor-pointer group"
+            asChild
+          >
             <Link to="/faq">
               <CardContent className="p-6 text-center">
                 <div className="w-12 h-12 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
@@ -164,8 +196,15 @@ export default function Contact() {
             </Link>
           </Card>
 
-          <Card className="border border-border/50 hover:border-primary/30 transition-colors cursor-pointer group" asChild>
-            <a href="https://discord.gg/helldivers2boost" target="_blank" rel="noopener noreferrer">
+          <Card
+            className="border border-border/50 hover:border-primary/30 transition-colors cursor-pointer group"
+            asChild
+          >
+            <a
+              href="https://discord.gg/helldivers2boost"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <CardContent className="p-6 text-center">
                 <div className="w-12 h-12 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                   <MessageSquare className="w-6 h-6 text-primary" />
@@ -192,7 +231,8 @@ export default function Contact() {
                   Create Support Ticket
                 </CardTitle>
                 <CardDescription>
-                  Submit a detailed support request and we'll get back to you soon
+                  Submit a detailed support request and we'll get back to you
+                  soon
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -203,19 +243,29 @@ export default function Contact() {
                       <Input
                         id="name"
                         value={formData.name}
-                        onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            name: e.target.value,
+                          }))
+                        }
                         placeholder="Your full name"
                         required
                       />
                     </div>
-                    
+
                     <div className="space-y-2">
                       <Label htmlFor="email">Email *</Label>
                       <Input
                         id="email"
                         type="email"
                         value={formData.email}
-                        onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                        onChange={(e) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            email: e.target.value,
+                          }))
+                        }
                         placeholder="your.email@example.com"
                         required
                       />
@@ -227,7 +277,12 @@ export default function Contact() {
                     <Input
                       id="subject"
                       value={formData.subject}
-                      onChange={(e) => setFormData(prev => ({ ...prev, subject: e.target.value }))}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          subject: e.target.value,
+                        }))
+                      }
                       placeholder="Brief description of your issue"
                       required
                     />
@@ -236,13 +291,21 @@ export default function Contact() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label>Category *</Label>
-                      <Select value={formData.category} onValueChange={(value) => setFormData(prev => ({ ...prev, category: value }))}>
+                      <Select
+                        value={formData.category}
+                        onValueChange={(value) =>
+                          setFormData((prev) => ({ ...prev, category: value }))
+                        }
+                      >
                         <SelectTrigger>
                           <SelectValue placeholder="Select category" />
                         </SelectTrigger>
                         <SelectContent>
                           {supportCategories.map((category) => (
-                            <SelectItem key={category.value} value={category.value}>
+                            <SelectItem
+                              key={category.value}
+                              value={category.value}
+                            >
                               {category.label}
                             </SelectItem>
                           ))}
@@ -252,7 +315,12 @@ export default function Contact() {
 
                     <div className="space-y-2">
                       <Label>Urgency *</Label>
-                      <Select value={formData.urgency} onValueChange={(value) => setFormData(prev => ({ ...prev, urgency: value }))}>
+                      <Select
+                        value={formData.urgency}
+                        onValueChange={(value) =>
+                          setFormData((prev) => ({ ...prev, urgency: value }))
+                        }
+                      >
                         <SelectTrigger>
                           <SelectValue placeholder="Select urgency" />
                         </SelectTrigger>
@@ -260,7 +328,9 @@ export default function Contact() {
                           {urgencyLevels.map((level) => (
                             <SelectItem key={level.value} value={level.value}>
                               <div className="flex items-center">
-                                <div className={`w-2 h-2 rounded-full mr-2 ${level.color.split(' ')[0]}`} />
+                                <div
+                                  className={`w-2 h-2 rounded-full mr-2 ${level.color.split(" ")[0]}`}
+                                />
                                 {level.label}
                               </div>
                             </SelectItem>
@@ -275,7 +345,12 @@ export default function Contact() {
                     <Input
                       id="orderId"
                       value={formData.orderId}
-                      onChange={(e) => setFormData(prev => ({ ...prev, orderId: e.target.value }))}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          orderId: e.target.value,
+                        }))
+                      }
                       placeholder="ORD-123456"
                     />
                   </div>
@@ -285,7 +360,12 @@ export default function Contact() {
                     <Textarea
                       id="message"
                       value={formData.message}
-                      onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          message: e.target.value,
+                        }))
+                      }
                       placeholder="Please describe your issue in detail..."
                       rows={5}
                       required
@@ -331,7 +411,9 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="font-medium">Email Support</p>
-                    <p className="text-sm text-muted-foreground">support@helldivers-boost.com</p>
+                    <p className="text-sm text-muted-foreground">
+                      support@helldivers-boost.com
+                    </p>
                   </div>
                 </div>
 
@@ -341,7 +423,9 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="font-medium">Live Chat</p>
-                    <p className="text-sm text-muted-foreground">Available 24/7 on our website</p>
+                    <p className="text-sm text-muted-foreground">
+                      Available 24/7 on our website
+                    </p>
                   </div>
                 </div>
 
@@ -351,7 +435,9 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="font-medium">Response Time</p>
-                    <p className="text-sm text-muted-foreground">Within 2-24 hours</p>
+                    <p className="text-sm text-muted-foreground">
+                      Within 2-24 hours
+                    </p>
                   </div>
                 </div>
 
@@ -361,7 +447,12 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="font-medium">Discord Community</p>
-                    <a href="https://discord.gg/helldivers2boost" target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
+                    <a
+                      href="https://discord.gg/helldivers2boost"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-primary hover:underline"
+                    >
                       Join our Discord server
                     </a>
                   </div>
@@ -379,7 +470,9 @@ export default function Contact() {
                   <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
                   <div>
                     <p className="font-medium">Expert Team</p>
-                    <p className="text-sm text-muted-foreground">Experienced Helldivers players</p>
+                    <p className="text-sm text-muted-foreground">
+                      Experienced Helldivers players
+                    </p>
                   </div>
                 </div>
 
@@ -387,7 +480,9 @@ export default function Contact() {
                   <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
                   <div>
                     <p className="font-medium">Fast Resolution</p>
-                    <p className="text-sm text-muted-foreground">Quick problem solving</p>
+                    <p className="text-sm text-muted-foreground">
+                      Quick problem solving
+                    </p>
                   </div>
                 </div>
 
@@ -395,7 +490,9 @@ export default function Contact() {
                   <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
                   <div>
                     <p className="font-medium">24/7 Availability</p>
-                    <p className="text-sm text-muted-foreground">Round-the-clock assistance</p>
+                    <p className="text-sm text-muted-foreground">
+                      Round-the-clock assistance
+                    </p>
                   </div>
                 </div>
 
@@ -403,7 +500,9 @@ export default function Contact() {
                   <CheckCircle className="w-5 h-5 text-green-500 mt-0.5" />
                   <div>
                     <p className="font-medium">Multilingual</p>
-                    <p className="text-sm text-muted-foreground">Support in multiple languages</p>
+                    <p className="text-sm text-muted-foreground">
+                      Support in multiple languages
+                    </p>
                   </div>
                 </div>
               </CardContent>
@@ -415,17 +514,33 @@ export default function Contact() {
                 <div className="flex items-start space-x-3">
                   <AlertCircle className="w-6 h-6 text-red-500 mt-0.5" />
                   <div>
-                    <h3 className="font-semibold text-red-700 dark:text-red-400 mb-2">Urgent Issues?</h3>
+                    <h3 className="font-semibold text-red-700 dark:text-red-400 mb-2">
+                      Urgent Issues?
+                    </h3>
                     <p className="text-sm text-muted-foreground mb-3">
-                      For payment problems, security concerns, or account access issues, contact us immediately via live chat.
+                      For payment problems, security concerns, or account access
+                      issues, contact us immediately via live chat.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-2">
-                      <Button size="sm" variant="outline" className="border-red-500/20 hover:bg-red-500/10">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="border-red-500/20 hover:bg-red-500/10"
+                      >
                         <MessageSquare className="w-4 h-4 mr-2" />
                         Emergency Chat
                       </Button>
-                      <Button size="sm" variant="outline" className="border-red-500/20 hover:bg-red-500/10" asChild>
-                        <a href="https://discord.gg/helldivers2boost" target="_blank" rel="noopener noreferrer">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="border-red-500/20 hover:bg-red-500/10"
+                        asChild
+                      >
+                        <a
+                          href="https://discord.gg/helldivers2boost"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <MessageSquare className="w-4 h-4 mr-2" />
                           Discord Support
                         </a>

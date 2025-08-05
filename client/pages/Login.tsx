@@ -2,7 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
@@ -15,7 +21,7 @@ export default function Login() {
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   const { login } = useAuth();
@@ -55,7 +61,9 @@ export default function Login() {
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <Target className="w-5 h-5 text-primary-foreground" />
               </div>
-              <span className="text-xl font-bold text-foreground">HelldiversBoost</span>
+              <span className="text-xl font-bold text-foreground">
+                HelldiversBoost
+              </span>
             </div>
             <CardTitle className="text-2xl">Welcome Back</CardTitle>
             <CardDescription>
@@ -72,7 +80,8 @@ export default function Login() {
             <div className="bg-muted/50 border border-border px-4 py-3 rounded-lg text-sm mb-4">
               <p className="font-medium mb-2">Demo Credentials:</p>
               <p className="text-xs text-muted-foreground">
-                <strong>Admin:</strong> admin@helldivers.com / admin123<br />
+                <strong>Admin:</strong> admin@helldivers.com / admin123
+                <br />
                 <strong>User:</strong> user@example.com / password
               </p>
             </div>
@@ -88,12 +97,14 @@ export default function Login() {
                     placeholder="Enter your email"
                     className="pl-10"
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, email: e.target.value })
+                    }
                     required
                   />
                 </div>
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
@@ -104,7 +115,9 @@ export default function Login() {
                     placeholder="Enter your password"
                     className="pl-10 pr-10"
                     value={formData.password}
-                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, password: e.target.value })
+                    }
                     required
                   />
                   <Button
@@ -114,7 +127,11 @@ export default function Login() {
                     className="absolute right-1 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0"
                     onClick={() => setShowPassword(!showPassword)}
                   >
-                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    {showPassword ? (
+                      <EyeOff className="w-4 h-4" />
+                    ) : (
+                      <Eye className="w-4 h-4" />
+                    )}
                   </Button>
                 </div>
               </div>
@@ -124,7 +141,10 @@ export default function Login() {
                   <input type="checkbox" className="rounded border-border" />
                   <span>Remember me</span>
                 </label>
-                <Link to="/forgot-password" className="text-sm text-primary hover:underline">
+                <Link
+                  to="/forgot-password"
+                  className="text-sm text-primary hover:underline"
+                >
                   Forgot password?
                 </Link>
               </div>
@@ -138,7 +158,10 @@ export default function Login() {
               <Separator className="my-4" />
               <div className="text-center text-sm text-muted-foreground">
                 Don't have an account?{" "}
-                <Link to="/register" className="text-primary hover:underline font-medium">
+                <Link
+                  to="/register"
+                  className="text-primary hover:underline font-medium"
+                >
                   Create account
                 </Link>
               </div>

@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
-import { Service } from './useServices';
+import { createContext, useContext, useState, ReactNode } from "react";
+import { Service } from "./useServices";
 
 export interface CartItem {
   id: string;
@@ -24,28 +24,33 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   const addToCart = (service: Service, quantity: number = 1) => {
-    setCartItems(prev => {
-      const existingItem = prev.find(item => item.service.id === service.id);
-      
+    setCartItems((prev) => {
+      const existingItem = prev.find((item) => item.service.id === service.id);
+
       if (existingItem) {
-        return prev.map(item =>
+        return prev.map((item) =>
           item.service.id === service.id
             ? { ...item, quantity: item.quantity + quantity }
-            : item
+            : item,
         );
       } else {
-        return [...prev, {
-          id: Date.now().toString(),
-          service,
-          quantity,
-          addedAt: new Date().toISOString()
-        }];
+        return [
+          ...prev,
+          {
+            id: Date.now().toString(),
+            service,
+            quantity,
+            addedAt: new Date().toISOString(),
+          },
+        ];
       }
     });
   };
 
   const removeFromCart = (serviceId: string) => {
-    setCartItems(prev => prev.filter(item => item.service.id !== serviceId));
+    setCartItems((prev) =>
+      prev.filter((item) => item.service.id !== serviceId),
+    );
   };
 
   const updateQuantity = (serviceId: string, quantity: number) => {
@@ -54,12 +59,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    setCartItems(prev =>
-      prev.map(item =>
-        item.service.id === serviceId
-          ? { ...item, quantity }
-          : item
-      )
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item.service.id === serviceId ? { ...item, quantity } : item,
+      ),
     );
   };
 
@@ -69,7 +72,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const getCartTotal = () => {
     return cartItems.reduce((total, item) => {
-      return total + (item.service.price * item.quantity);
+      return total + item.service.price * item.quantity;
     }, 0);
   };
 
@@ -78,15 +81,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <CartContext.Provider value={{
-      cartItems,
-      addToCart,
-      removeFromCart,
-      updateQuantity,
-      clearCart,
-      getCartTotal,
-      getCartItemCount
-    }}>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        clearCart,
+        getCartTotal,
+        getCartItemCount,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
@@ -95,7 +100,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 export function useCart() {
   const context = useContext(CartContext);
   if (context === undefined) {
-    throw new Error('useCart must be used within a CartProvider');
+    throw new Error("useCart must be used within a CartProvider");
   }
   return context;
 }

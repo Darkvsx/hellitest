@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from "react";
 
 export interface Service {
   id: string;
@@ -17,55 +17,61 @@ export interface Service {
 
 interface ServicesContextType {
   services: Service[];
-  addService: (service: Omit<Service, 'id' | 'createdAt' | 'orders'>) => void;
+  addService: (service: Omit<Service, "id" | "createdAt" | "orders">) => void;
   updateService: (id: string, service: Partial<Service>) => void;
   deleteService: (id: string) => void;
   toggleServiceStatus: (id: string) => void;
 }
 
-const ServicesContext = createContext<ServicesContextType | undefined>(undefined);
+const ServicesContext = createContext<ServicesContextType | undefined>(
+  undefined,
+);
 
 export function ServicesProvider({ children }: { children: ReactNode }) {
   const [services, setServices] = useState<Service[]>([]);
 
-  const addService = (serviceData: Omit<Service, 'id' | 'createdAt' | 'orders'>) => {
+  const addService = (
+    serviceData: Omit<Service, "id" | "createdAt" | "orders">,
+  ) => {
     const newService: Service = {
       ...serviceData,
       id: Date.now().toString(),
       createdAt: new Date().toISOString(),
-      orders: 0
+      orders: 0,
     };
-    setServices(prev => [...prev, newService]);
+    setServices((prev) => [...prev, newService]);
   };
 
   const updateService = (id: string, serviceData: Partial<Service>) => {
-    setServices(prev => 
-      prev.map(service => 
-        service.id === id ? { ...service, ...serviceData } : service
-      )
+    setServices((prev) =>
+      prev.map((service) =>
+        service.id === id ? { ...service, ...serviceData } : service,
+      ),
     );
   };
 
   const deleteService = (id: string) => {
-    setServices(prev => prev.filter(service => service.id !== id));
+    setServices((prev) => prev.filter((service) => service.id !== id));
   };
 
   const toggleServiceStatus = (id: string) => {
-    setServices(prev =>
-      prev.map(service =>
-        service.id === id ? { ...service, active: !service.active } : service
-      )
+    setServices((prev) =>
+      prev.map((service) =>
+        service.id === id ? { ...service, active: !service.active } : service,
+      ),
     );
   };
 
   return (
-    <ServicesContext.Provider value={{
-      services,
-      addService,
-      updateService,
-      deleteService,
-      toggleServiceStatus
-    }}>
+    <ServicesContext.Provider
+      value={{
+        services,
+        addService,
+        updateService,
+        deleteService,
+        toggleServiceStatus,
+      }}
+    >
       {children}
     </ServicesContext.Provider>
   );
@@ -74,7 +80,7 @@ export function ServicesProvider({ children }: { children: ReactNode }) {
 export function useServices() {
   const context = useContext(ServicesContext);
   if (context === undefined) {
-    throw new Error('useServices must be used within a ServicesProvider');
+    throw new Error("useServices must be used within a ServicesProvider");
   }
   return context;
 }
