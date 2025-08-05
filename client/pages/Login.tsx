@@ -24,7 +24,7 @@ export default function Login() {
     password: "",
   });
 
-  const { login } = useAuth();
+  const { login, isAdmin } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -36,12 +36,11 @@ export default function Login() {
       const success = await login(formData.email, formData.password);
 
       if (success) {
-        // Redirect to admin if admin user, otherwise to home
-        if (formData.email === "admin@helldivers.com") {
-          navigate("/admin");
-        } else {
-          navigate("/");
-        }
+        // Small delay to allow auth state to update
+        setTimeout(() => {
+          // Check if user is admin and redirect accordingly
+          navigate(isAdmin ? "/admin" : "/");
+        }, 100);
       } else {
         setError("Invalid email or password");
       }
@@ -78,11 +77,10 @@ export default function Login() {
             )}
 
             <div className="bg-muted/50 border border-border px-4 py-3 rounded-lg text-sm mb-4">
-              <p className="font-medium mb-2">Demo Credentials:</p>
+              <p className="font-medium mb-2">Database Connected!</p>
               <p className="text-xs text-muted-foreground">
-                <strong>Admin:</strong> admin@helldivers.com / admin123
-                <br />
-                <strong>User:</strong> user@example.com / password
+                Create a new account or sign in with existing credentials.
+                Admin accounts can be created with email ending in @helldivers.com
               </p>
             </div>
 
