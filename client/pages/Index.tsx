@@ -125,14 +125,12 @@ export default function Index() {
               {isAuthenticated ? (
                 <>
                   <div className="flex space-x-2 pt-2">
-                    {isAdmin && (
-                      <Button variant="ghost" size="sm" className="flex-1" asChild>
-                        <Link to="/admin">
-                          <User className="w-4 h-4 mr-2" />
-                          Admin
-                        </Link>
-                      </Button>
-                    )}
+                    <Button variant="ghost" size="sm" className="flex-1" asChild>
+                      <Link to={isAdmin ? "/admin" : "/account"}>
+                        <User className="w-4 h-4 mr-2" />
+                        {isAdmin ? "Admin" : "Account"}
+                      </Link>
+                    </Button>
                     <Button variant="ghost" size="sm" className="flex-1 relative" asChild>
                       <Link to="/cart">
                         <ShoppingCart className="w-4 h-4 mr-2" />
