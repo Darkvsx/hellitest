@@ -17,64 +17,7 @@ interface BoostingService {
   popular?: boolean;
 }
 
-const boostingServices: BoostingService[] = [
-  {
-    id: "level-boost",
-    title: "Level Boost",
-    description: "Power level your character to maximum efficiency",
-    price: 29.99,
-    originalPrice: 39.99,
-    duration: "1-3 days",
-    difficulty: "All Levels",
-    features: ["Level 1-50", "All Equipment Unlocked", "Full Completion", "24/7 Progress Updates"],
-    popular: true
-  },
-  {
-    id: "planet-liberation",
-    title: "Planet Liberation",
-    description: "Complete planet liberation campaigns with expert helldivers",
-    price: 49.99,
-    duration: "3-7 days",
-    difficulty: "Extreme",
-    features: ["Full Planet Clear", "All Objectives", "Maximum Rewards", "Screenshot Proof"]
-  },
-  {
-    id: "difficulty-unlock",
-    title: "Difficulty Unlock",
-    description: "Unlock all difficulty levels including Helldive operations",
-    price: 19.99,
-    duration: "1-2 days",
-    difficulty: "Progressive",
-    features: ["All Difficulties", "Suicide Mission Access", "Achievement Completion", "Safe & Secure"]
-  },
-  {
-    id: "super-samples",
-    title: "Super Sample Farming",
-    description: "Collect rare super samples for weapon and stratagem upgrades",
-    price: 34.99,
-    duration: "2-4 days",
-    difficulty: "High",
-    features: ["50+ Super Samples", "Weapon Upgrades", "Stratagem Access", "Priority Service"]
-  },
-  {
-    id: "medals-credits",
-    title: "Medals & Credits",
-    description: "Farm medals and super credits for warbond progression",
-    price: 24.99,
-    duration: "1-3 days",
-    difficulty: "Medium",
-    features: ["1000+ Medals", "500+ Super Credits", "Warbond Progress", "Fast Delivery"]
-  },
-  {
-    id: "galactic-war",
-    title: "Galactic War Progress",
-    description: "Complete galactic war objectives and major orders",
-    price: 39.99,
-    duration: "5-10 days",
-    difficulty: "Extreme",
-    features: ["Major Order Completion", "Strategic Impact", "Community Contribution", "Elite Performance"]
-  }
-];
+const boostingServices: BoostingService[] = [];
 
 export default function Index() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
