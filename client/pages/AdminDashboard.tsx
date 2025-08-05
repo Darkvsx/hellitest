@@ -35,32 +35,7 @@ interface Service {
   orders: number;
 }
 
-const mockOrders: Order[] = [
-  {
-    id: "ORD-001",
-    customer: "john_helldiver",
-    service: "Level Boost (1-50)",
-    status: "in-progress",
-    amount: 29.99,
-    date: "2024-01-15"
-  },
-  {
-    id: "ORD-002", 
-    customer: "space_marine_99",
-    service: "Planet Liberation",
-    status: "pending",
-    amount: 49.99,
-    date: "2024-01-14"
-  },
-  {
-    id: "ORD-003",
-    customer: "helldiver_elite",
-    service: "Super Sample Farming",
-    status: "completed",
-    amount: 34.99,
-    date: "2024-01-13"
-  }
-];
+const mockOrders: Order[] = [];
 
 const mockServices: Service[] = [];
 
