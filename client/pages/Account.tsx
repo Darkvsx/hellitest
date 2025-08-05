@@ -201,7 +201,7 @@ export default function Account() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {orders.length === 0 ? (
+                {userOrders.length === 0 ? (
                   <div className="text-center py-8">
                     <Package className="w-16 h-16 mx-auto mb-4 text-muted-foreground opacity-50" />
                     <h3 className="text-lg font-semibold mb-2">No orders yet</h3>
