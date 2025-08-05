@@ -59,9 +59,9 @@ export default function Index() {
                     <Link to="/cart">
                       <ShoppingCart className="w-4 h-4 mr-2" />
                       Cart
-                      {cartItems.length > 0 && (
+                      {cartItemCount > 0 && (
                         <Badge className="absolute -top-2 -right-2 w-5 h-5 rounded-full p-0 flex items-center justify-center text-xs">
-                          {cartItems.length}
+                          {cartItemCount}
                         </Badge>
                       )}
                     </Link>
@@ -77,9 +77,9 @@ export default function Index() {
                     <Link to="/cart">
                       <ShoppingCart className="w-4 h-4 mr-2" />
                       Cart
-                      {cartItems.length > 0 && (
+                      {cartItemCount > 0 && (
                         <Badge className="absolute -top-2 -right-2 w-5 h-5 rounded-full p-0 flex items-center justify-center text-xs">
-                          {cartItems.length}
+                          {cartItemCount}
                         </Badge>
                       )}
                     </Link>
@@ -133,9 +133,9 @@ export default function Index() {
                       <Link to="/cart">
                         <ShoppingCart className="w-4 h-4 mr-2" />
                         Cart
-                        {cartItems.length > 0 && (
+                        {cartItemCount > 0 && (
                           <Badge className="absolute -top-1 -right-1 w-4 h-4 rounded-full p-0 flex items-center justify-center text-xs">
-                            {cartItems.length}
+                            {cartItemCount}
                           </Badge>
                         )}
                       </Link>
@@ -155,9 +155,9 @@ export default function Index() {
                       <Link to="/cart">
                         <ShoppingCart className="w-4 h-4 mr-2" />
                         Cart
-                        {cartItems.length > 0 && (
+                        {cartItemCount > 0 && (
                           <Badge className="absolute -top-1 -right-1 w-4 h-4 rounded-full p-0 flex items-center justify-center text-xs">
-                            {cartItems.length}
+                            {cartItemCount}
                           </Badge>
                         )}
                       </Link>
