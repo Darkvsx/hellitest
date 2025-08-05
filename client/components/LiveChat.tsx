@@ -2,14 +2,14 @@ import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { 
-  MessageSquare, 
-  X, 
-  Send, 
-  Minimize2, 
+import {
+  MessageSquare,
+  X,
+  Send,
+  Minimize2,
   User,
   Bot,
-  Online
+  Circle
 } from 'lucide-react';
 
 interface ChatMessage {
