@@ -68,29 +68,13 @@ export function ServicesProvider({ children }: { children: ReactNode }) {
         .order('created_at', { ascending: false });
 
       if (fetchError) {
+        console.error('Supabase fetch error:', fetchError);
         throw fetchError;
       }
 
-      let mappedServices = data?.map(mapServiceFromDB) || [];
-
-      // If no services exist, seed the database with sample data
-      if (mappedServices.length === 0) {
-        console.log('No services found, seeding database...');
-        const seeded = await seedServices();
-        if (seeded) {
-          // Fetch again after seeding
-          const { data: newData, error: refetchError } = await supabase
-            .from('services')
-            .select('*')
-            .order('created_at', { ascending: false });
-
-          if (!refetchError && newData) {
-            mappedServices = newData.map(mapServiceFromDB);
-          }
-        }
-      }
-
+      const mappedServices = data?.map(mapServiceFromDB) || [];
       setServices(mappedServices);
+      console.log('Services loaded successfully:', mappedServices.length);
     } catch (err) {
       console.error('Error fetching services:', err);
       setError('Failed to load services');
