@@ -105,6 +105,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const register = async (email: string, password: string, username: string): Promise<boolean> => {
     try {
+      console.log('Attempting registration for:', email);
+
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -115,14 +117,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       });
 
+      console.log('Supabase response:', { data, error });
+
       if (error) {
         console.error('Registration error:', error.message);
+        console.error('Full error object:', error);
         return false;
       }
 
-      return !!data.user;
+      if (data.user) {
+        console.log('User created successfully:', data.user.id);
+        return true;
+      }
+
+      console.log('No user returned but no error');
+      return false;
     } catch (error) {
-      console.error('Registration error:', error);
+      console.error('Registration catch error:', error);
       return false;
     }
   };
