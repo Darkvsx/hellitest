@@ -7,24 +7,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { ShoppingCart, User, LogIn, Menu, X, Star, Shield, Clock, Trophy, Target, Zap } from "lucide-react";
 
-interface BoostingService {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  originalPrice?: number;
-  duration: string;
-  difficulty: string;
-  features: string[];
-  popular?: boolean;
-}
-
-const boostingServices: BoostingService[] = [];
-
 export default function Index() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cartItems, setCartItems] = useState<string[]>([]);
   const { isAuthenticated, isAdmin, user, logout } = useAuth();
+  const { services } = useServices();
+
+  // Only show active services on homepage
+  const activeServices = services.filter(service => service.active);
 
   const addToCart = (serviceId: string) => {
     setCartItems(prev => [...prev, serviceId]);
