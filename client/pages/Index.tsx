@@ -238,7 +238,7 @@ export default function Index() {
             </p>
           </div>
 
-          {boostingServices.length === 0 ? (
+          {activeServices.length === 0 ? (
             <div className="text-center py-16">
               <div className="w-16 h-16 bg-muted rounded-lg flex items-center justify-center mx-auto mb-6">
                 <Target className="w-8 h-8 text-muted-foreground" />
