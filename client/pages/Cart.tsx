@@ -96,13 +96,16 @@ export default function Cart() {
                         <div className="w-16 h-16 bg-muted rounded-lg flex items-center justify-center">
                           <ShoppingCart className="w-6 h-6 text-muted-foreground" />
                         </div>
-                        
+
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-medium text-foreground">{item.title}</h3>
+                          <h3 className="font-medium text-foreground">{item.service.title}</h3>
                           <div className="flex items-center space-x-2 mt-1">
                             <Badge variant="outline" className="text-xs">
                               <Clock className="w-3 h-3 mr-1" />
-                              {item.duration}
+                              {item.service.duration}
+                            </Badge>
+                            <Badge variant="outline" className="text-xs">
+                              {item.service.difficulty}
                             </Badge>
                           </div>
                         </div>
@@ -111,7 +114,7 @@ export default function Cart() {
                           <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => updateQuantity(item.id, -1)}
+                            onClick={() => handleUpdateQuantity(item.service.id, -1)}
                             disabled={item.quantity <= 1}
                           >
                             <Minus className="w-3 h-3" />
@@ -120,21 +123,21 @@ export default function Cart() {
                           <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => updateQuantity(item.id, 1)}
+                            onClick={() => handleUpdateQuantity(item.service.id, 1)}
                           >
                             <Plus className="w-3 h-3" />
                           </Button>
                         </div>
 
                         <div className="text-right">
-                          <p className="font-medium">${(item.price * item.quantity).toFixed(2)}</p>
-                          <p className="text-sm text-muted-foreground">${item.price} each</p>
+                          <p className="font-medium">${(item.service.price * item.quantity).toFixed(2)}</p>
+                          <p className="text-sm text-muted-foreground">${item.service.price} each</p>
                         </div>
 
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => removeItem(item.id)}
+                          onClick={() => handleRemoveItem(item.service.id)}
                           className="text-destructive hover:text-destructive"
                         >
                           <Trash2 className="w-4 h-4" />
