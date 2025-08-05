@@ -204,32 +204,46 @@ export default function AdminDashboard() {
                 </Button>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {services.map((service) => (
-                    <div key={service.id} className="flex items-center justify-between p-4 border border-border rounded-lg">
-                      <div className="flex items-center space-x-4">
-                        <div>
-                          <p className="font-medium">{service.name}</p>
-                          <p className="text-sm text-muted-foreground">{service.orders} orders</p>
+                {services.length === 0 ? (
+                  <div className="text-center py-12">
+                    <Settings className="w-16 h-16 mx-auto mb-4 text-muted-foreground opacity-50" />
+                    <h3 className="text-lg font-semibold mb-2">No services yet</h3>
+                    <p className="text-muted-foreground mb-6 max-w-sm mx-auto">
+                      Create your first boosting service to start accepting orders from customers.
+                    </p>
+                    <Button>
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add Your First Service
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {services.map((service) => (
+                      <div key={service.id} className="flex items-center justify-between p-4 border border-border rounded-lg">
+                        <div className="flex items-center space-x-4">
+                          <div>
+                            <p className="font-medium">{service.name}</p>
+                            <p className="text-sm text-muted-foreground">{service.orders} orders</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <Badge variant={service.active ? "default" : "secondary"}>
+                            {service.active ? "Active" : "Inactive"}
+                          </Badge>
+                          <span className="font-medium">${service.price}</span>
+                          <div className="flex space-x-1">
+                            <Button size="sm" variant="ghost">
+                              <Edit className="w-4 h-4" />
+                            </Button>
+                            <Button size="sm" variant="ghost">
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <Badge variant={service.active ? "default" : "secondary"}>
-                          {service.active ? "Active" : "Inactive"}
-                        </Badge>
-                        <span className="font-medium">${service.price}</span>
-                        <div className="flex space-x-1">
-                          <Button size="sm" variant="ghost">
-                            <Edit className="w-4 h-4" />
-                          </Button>
-                          <Button size="sm" variant="ghost">
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
