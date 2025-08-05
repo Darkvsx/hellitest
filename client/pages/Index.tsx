@@ -303,12 +303,12 @@ export default function Index() {
                         </ul>
                       </div>
                       <Button
-                        className="w-full"
-                        onClick={() => addToCart(service.id)}
-                      >
-                        <ShoppingCart className="w-4 h-4 mr-2" />
-                        Add to Cart
-                      </Button>
+                      className="w-full"
+                      onClick={() => handleAddToCart(service)}
+                    >
+                      <ShoppingCart className="w-4 h-4 mr-2" />
+                      Add to Cart
+                    </Button>
                     </div>
                   </CardContent>
                 </Card>
