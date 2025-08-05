@@ -335,6 +335,18 @@ export default function Contact() {
                     <p className="text-sm text-muted-foreground">Within 2-24 hours</p>
                   </div>
                 </div>
+
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center">
+                    <MessageSquare className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-medium">Discord Community</p>
+                    <a href="https://discord.gg/helldivers2boost" target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
+                      Join our Discord server
+                    </a>
+                  </div>
+                </div>
               </CardContent>
             </Card>
 
