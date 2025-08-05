@@ -318,11 +318,21 @@ export default function Bundles() {
                 Don't see exactly what you need? Our team can create a custom bundle tailored to your specific requirements.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button className="bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90">
-                  Request Custom Bundle
+                <Button className="bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90" asChild>
+                  <Link to="/contact">
+                    Request Custom Bundle
+                  </Link>
                 </Button>
-                <Button variant="outline" className="border-primary/20 hover:bg-primary/10">
-                  Contact Support
+                <Button variant="outline" className="border-primary/20 hover:bg-primary/10" asChild>
+                  <Link to="/contact">
+                    Contact Support
+                  </Link>
+                </Button>
+                <Button variant="outline" className="border-primary/20 hover:bg-primary/10" asChild>
+                  <a href="https://discord.gg/helldivers2boost" target="_blank" rel="noopener noreferrer">
+                    <MessageSquare className="w-4 h-4 mr-2" />
+                    Ask Discord
+                  </a>
                 </Button>
               </div>
             </CardContent>
