@@ -116,7 +116,7 @@ export function Footer() {
                 </div>
                 <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                   <MessageSquare className="w-4 h-4" />
-                  <span>Live Chat Available</span>
+                  <span>Discord Community</span>
                 </div>
               </div>
             </div>
