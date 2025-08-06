@@ -10,11 +10,13 @@ interface CartItem {
 interface CartContextType {
   items: CartItem[];
   addItem: (service: { id: string; title: string; price: number }) => void;
+  addToCart: (service: { id: string; title: string; price: number }) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
   total: number;
   itemCount: number;
+  getCartItemCount: () => number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
