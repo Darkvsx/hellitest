@@ -50,8 +50,6 @@ export default function Index() {
     ? activeServices
     : activeServices.filter(service => service.category === selectedCategory);
 
-  const cartItemCount = getCartItemCount();
-
   // Calculate service counts by category
   const serviceCounts = activeServices.reduce((counts, service) => {
     counts[service.category] = (counts[service.category] || 0) + 1;
@@ -65,15 +63,6 @@ export default function Index() {
       description: `${service.title} has been added to your cart.`,
     });
   };
-
-  // Handle scroll effect for navbar
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-background/80">
