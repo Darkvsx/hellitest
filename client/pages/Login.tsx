@@ -58,9 +58,11 @@ export default function Login() {
         <Card>
           <CardHeader className="text-center">
             <div className="flex items-center justify-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <Target className="w-5 h-5 text-primary-foreground" />
-              </div>
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2F140080265ae84fed81345db6d679ba75%2F0ba66a9961654e799d47f40a907b95dc?format=webp&width=64"
+                alt="HelldiversBoost Logo"
+                className="w-8 h-8"
+              />
               <span className="text-xl font-bold text-foreground">
                 HelldiversBoost
               </span>
