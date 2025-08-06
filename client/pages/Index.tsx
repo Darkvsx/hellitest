@@ -60,6 +60,15 @@ export default function Index() {
     });
   };
 
+  // Handle scroll effect for scroll-to-top button
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div className="bg-gradient-to-br from-background via-background to-background/80">
       {/* Navigation */}
