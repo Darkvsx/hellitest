@@ -78,20 +78,11 @@ export default function Login() {
             )}
 
             <div className="bg-muted/50 border border-border px-4 py-3 rounded-lg text-sm mb-4">
-              <p className="font-medium mb-2">Database Connected!</p>
+              <p className="font-medium mb-2">Welcome to HelldiversBoost!</p>
               <p className="text-xs text-muted-foreground">
-                Create a new account or sign in with existing credentials.
-                Admin accounts can be created with email ending in @helldivers.com
+                Sign in to your account or create a new one to get started.
+                Admin accounts can be created with @helldivers.com email addresses.
               </p>
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                onClick={handleDebug}
-                className="mt-2 w-full"
-              >
-                Debug Auth
-              </Button>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
