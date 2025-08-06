@@ -152,8 +152,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const register = async (email: string, password: string, username: string): Promise<boolean> => {
     try {
       console.log('Attempting registration for:', email);
-      
-      const { data, error } = await supabase.auth.signUp({
+
+      // Add timeout to prevent hanging
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Registration timeout')), 10000)
+      );
+
+      const registerPromise = supabase.auth.signUp({
         email,
         password,
         options: {
@@ -162,6 +167,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           }
         }
       });
+
+      const { data, error } = await Promise.race([registerPromise, timeoutPromise]) as any;
 
       console.log('Supabase response:', { data, error });
 
