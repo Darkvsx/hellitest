@@ -516,7 +516,7 @@ export default function Index() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {activeServices.map((service) => (
+              {filteredServices.map((service) => (
                 <Card
                   key={service.id}
                   className="group relative overflow-hidden bg-gradient-to-br from-card to-card/80 border border-border/50 hover:border-primary/30 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
