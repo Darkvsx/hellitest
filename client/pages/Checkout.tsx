@@ -32,6 +32,9 @@ import {
   Package,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+
+const PAYPAL_CLIENT_ID = "AefD8SednJLcqfFDsiO9AetjGEsCMVPYSCp-gX-UmUyJsQvSUHgbhnl39ZJCB14Tq-eXM3kG2Q6aizB8";
 
 export default function Checkout() {
   const { cartItems, getCartTotal, clearCart } = useCart();
@@ -52,98 +55,32 @@ export default function Checkout() {
   const tax = subtotal * 0.08; // 8% tax
   const total = subtotal + tax;
 
-  // Redirect to login if not authenticated and no guest info
-  if (!isAuthenticated && (!guestInfo.name || !guestInfo.email)) {
+  if (cartItems.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <Card className="border border-border/50">
-            <CardHeader className="text-center">
-              <CardTitle className="text-2xl">Complete Your Order</CardTitle>
-              <CardDescription>
-                Please sign in or provide your information to continue
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                <div className="text-center">
-                  <h3 className="text-lg font-semibold mb-4">
-                    Existing Customer?
-                  </h3>
-                  <Link to="/login">
-                    <Button className="bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90">
-                      <User className="w-4 h-4 mr-2" />
-                      Sign In to Your Account
-                    </Button>
-                  </Link>
-                </div>
-
-                <div className="relative">
-                  <div className="absolute inset-0 flex items-center">
-                    <Separator className="w-full" />
-                  </div>
-                  <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-background px-2 text-muted-foreground">
-                      Or continue as guest
-                    </span>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="guestName">Full Name *</Label>
-                    <Input
-                      id="guestName"
-                      value={guestInfo.name}
-                      onChange={(e) =>
-                        setGuestInfo((prev) => ({
-                          ...prev,
-                          name: e.target.value,
-                        }))
-                      }
-                      placeholder="Enter your full name"
-                      required
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="guestEmail">Email Address *</Label>
-                    <Input
-                      id="guestEmail"
-                      type="email"
-                      value={guestInfo.email}
-                      onChange={(e) =>
-                        setGuestInfo((prev) => ({
-                          ...prev,
-                          email: e.target.value,
-                        }))
-                      }
-                      placeholder="Enter your email address"
-                      required
-                    />
-                  </div>
-
-                  <p className="text-sm text-muted-foreground">
-                    We'll use this email to send you order updates and tracking
-                    information.
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="text-center max-w-md">
+          <Package className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+          <h2 className="text-2xl font-bold mb-4">Your cart is empty</h2>
+          <p className="text-muted-foreground mb-6">
+            Add some services to your cart before proceeding to checkout.
+          </p>
+          <Button asChild>
+            <Link to="/">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Continue Shopping
+            </Link>
+          </Button>
         </div>
       </div>
     );
   }
 
-  const handlePayPalPayment = async () => {
+  const handlePayPalSuccess = async (details: any, data: any) => {
+    console.log("PayPal payment successful:", { details, data });
     setIsProcessing(true);
 
     try {
-      // Simulate PayPal payment processing
-      await new Promise((resolve) => setTimeout(resolve, 3000));
-
-      // Create the order
+      // Create the order with paid status only after successful PayPal payment
       const orderId = addOrder({
         userId: user?.id || "guest",
         customerEmail: user?.email || guestInfo.email,
@@ -156,7 +93,7 @@ export default function Checkout() {
         })),
         status: "pending",
         totalAmount: total,
-        paymentStatus: "paid",
+        paymentStatus: "paid", // Only set to paid after successful PayPal payment
         notes: orderNotes,
       });
 
@@ -164,17 +101,17 @@ export default function Checkout() {
       clearCart();
 
       toast({
-        title: "Order placed successfully!",
-        description: `Your order #${orderId} has been confirmed. You'll receive an email confirmation shortly.`,
+        title: "Payment successful!",
+        description: `Your order #${orderId} has been confirmed. Payment ID: ${details.id}`,
       });
 
       // Redirect to order tracking
       navigate(`/order/${orderId}`);
     } catch (error) {
+      console.error("Error creating order:", error);
       toast({
-        title: "Payment failed",
-        description:
-          "There was an error processing your payment. Please try again.",
+        title: "Order creation failed",
+        description: "Payment was successful but we couldn't create your order. Please contact support.",
         variant: "destructive",
       });
     } finally {
@@ -182,91 +119,92 @@ export default function Checkout() {
     }
   };
 
-  if (cartItems.length === 0) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 flex items-center justify-center">
-        <Card className="w-full max-w-md">
-          <CardContent className="p-8 text-center">
-            <Package className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-            <h2 className="text-xl font-semibold mb-2">Your cart is empty</h2>
-            <p className="text-muted-foreground mb-6">
-              Add some services to your cart before proceeding to checkout
-            </p>
-            <Link to="/">
-              <Button>Browse Services</Button>
-            </Link>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
+  const handlePayPalError = (error: any) => {
+    console.error("PayPal payment error:", error);
+    toast({
+      title: "Payment failed",
+      description: "There was an error processing your PayPal payment. Please try again.",
+      variant: "destructive",
+    });
+  };
+
+  const handlePayPalCancel = (data: any) => {
+    console.log("PayPal payment cancelled:", data);
+    toast({
+      title: "Payment cancelled",
+      description: "You cancelled the PayPal payment. Your order was not placed.",
+    });
+  };
+
+  const createPayPalOrder = (data: any, actions: any) => {
+    return actions.order.create({
+      purchase_units: [
+        {
+          amount: {
+            value: total.toFixed(2),
+            currency_code: "USD",
+          },
+          description: `HelldiversBoost Order - ${cartItems.length} service(s)`,
+        },
+      ],
+      application_context: {
+        shipping_preference: "NO_SHIPPING",
+      },
+    });
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-card to-card/80 border-b border-border">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex items-center mb-6">
-            <Link to="/cart">
-              <Button variant="ghost" size="sm" className="hover:bg-primary/10">
-                <ArrowLeft className="w-4 h-4 mr-2" />
+    <PayPalScriptProvider
+      options={{
+        "client-id": PAYPAL_CLIENT_ID,
+        currency: "USD",
+        intent: "capture",
+      }}
+    >
+      <div className="min-h-screen bg-background py-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="mb-8">
+            <div className="flex items-center space-x-2 mb-4">
+              <Link
+                to="/cart"
+                className="flex items-center text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <ArrowLeft className="w-4 h-4 mr-1" />
                 Back to Cart
-              </Button>
-            </Link>
-          </div>
-
-          <div className="text-center">
-            <h1 className="text-3xl font-bold mb-2">
-              <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                Secure
-              </span>
-              <span className="bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
-                {" "}
-                Checkout
-              </span>
-            </h1>
+              </Link>
+            </div>
+            <h1 className="text-3xl font-bold">Checkout</h1>
             <p className="text-muted-foreground">
               Complete your order securely with PayPal
             </p>
           </div>
-        </div>
-      </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Order Summary */}
-          <div>
-            <Card className="border border-border/50">
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Package className="w-5 h-5 mr-2" />
-                  Order Summary
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Order Summary */}
+            <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Package className="w-5 h-5 mr-2" />
+                    Order Summary
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
                   {cartItems.map((item) => (
                     <div
                       key={item.id}
-                      className="flex items-center justify-between p-4 bg-muted/50 rounded-lg"
+                      className="flex justify-between items-start"
                     >
                       <div className="flex-1">
-                        <h3 className="font-medium">{item.service.title}</h3>
+                        <h4 className="font-medium">{item.service.title}</h4>
                         <p className="text-sm text-muted-foreground">
-                          Qty: {item.quantity} • {item.service.duration}
+                          Quantity: {item.quantity}
                         </p>
-                        <div className="flex space-x-1 mt-1">
-                          <Badge variant="outline" className="text-xs">
-                            {item.service.difficulty}
-                          </Badge>
-                        </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold">
+                        <p className="font-medium">
                           ${(item.service.price * item.quantity).toFixed(2)}
-                        </p>
-                        <p className="text-sm text-muted-foreground">
-                          ${item.service.price} each
                         </p>
                       </div>
                     </div>
@@ -275,243 +213,211 @@ export default function Checkout() {
                   <Separator />
 
                   <div className="space-y-2">
-                    <div className="flex justify-between">
+                    <div className="flex justify-between text-sm">
                       <span>Subtotal</span>
                       <span>${subtotal.toFixed(2)}</span>
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between text-sm">
                       <span>Tax (8%)</span>
                       <span>${tax.toFixed(2)}</span>
                     </div>
                     <Separator />
-                    <div className="flex justify-between font-semibold text-lg">
+                    <div className="flex justify-between text-lg font-bold">
                       <span>Total</span>
-                      <span className="text-primary">${total.toFixed(2)}</span>
+                      <span>${total.toFixed(2)}</span>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
 
-            {/* Customer Information */}
-            <Card className="border border-border/50 mt-6">
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <User className="w-5 h-5 mr-2" />
-                  Customer Information
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div>
-                    <p className="text-sm text-muted-foreground">Name</p>
-                    <p className="font-medium">
-                      {user?.username || guestInfo.name}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Email</p>
-                    <p className="font-medium">
-                      {user?.email || guestInfo.email}
-                    </p>
-                  </div>
-                  {!isAuthenticated && (
-                    <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-                      <p className="text-sm text-blue-700 dark:text-blue-400">
-                        <Mail className="w-4 h-4 inline mr-1" />
-                        We'll send order updates to this email address
-                      </p>
+              {/* Customer Information */}
+              {!isAuthenticated && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <User className="w-5 h-5 mr-2" />
+                      Contact Information
+                    </CardTitle>
+                    <CardDescription>
+                      We'll send order updates to this email
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <Label htmlFor="guestName">Full Name *</Label>
+                      <Input
+                        id="guestName"
+                        value={guestInfo.name}
+                        onChange={(e) =>
+                          setGuestInfo({ ...guestInfo, name: e.target.value })
+                        }
+                        placeholder="Enter your full name"
+                        required
+                      />
                     </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Payment Section */}
-          <div>
-            <Card className="border border-border/50">
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <CreditCard className="w-5 h-5 mr-2" />
-                  Payment Method
-                </CardTitle>
-                <CardDescription>
-                  Secure payment processing via PayPal
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
-                  {/* PayPal Payment */}
-                  <div className="p-6 border-2 border-primary/20 rounded-lg bg-gradient-to-r from-primary/5 to-blue-500/5">
-                    <div className="flex items-center justify-center mb-4">
-                      <div className="text-3xl font-bold text-blue-600">
-                        PayPal
-                      </div>
+                    <div>
+                      <Label htmlFor="guestEmail">Email Address *</Label>
+                      <Input
+                        id="guestEmail"
+                        type="email"
+                        value={guestInfo.email}
+                        onChange={(e) =>
+                          setGuestInfo({ ...guestInfo, email: e.target.value })
+                        }
+                        placeholder="Enter your email"
+                        required
+                      />
                     </div>
-                    <p className="text-center text-sm text-muted-foreground mb-4">
-                      Pay securely with your PayPal account or credit card
-                    </p>
-                    <div className="flex items-center justify-center space-x-2 text-xs text-muted-foreground">
-                      <Shield className="w-4 h-4 text-green-500" />
-                      <span>256-bit SSL encryption</span>
-                      <span>•</span>
-                      <span>Buyer protection</span>
-                    </div>
-                  </div>
+                  </CardContent>
+                </Card>
+              )}
 
-                  {/* Order Notes */}
-                  <div className="space-y-2">
-                    <Label htmlFor="notes">
-                      Special Instructions (Optional)
-                    </Label>
-                    <Textarea
-                      id="notes"
-                      value={orderNotes}
-                      onChange={(e) => setOrderNotes(e.target.value)}
-                      placeholder="Any special requests or preferred playing times..."
-                      rows={3}
-                    />
-                  </div>
+              {/* Order Notes */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <MessageSquare className="w-5 h-5 mr-2" />
+                    Order Notes
+                  </CardTitle>
+                  <CardDescription>
+                    Any special instructions for your boosting service
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <Textarea
+                    value={orderNotes}
+                    onChange={(e) => setOrderNotes(e.target.value)}
+                    placeholder="e.g., Preferred gaming hours, account details, etc."
+                    rows={4}
+                  />
+                </CardContent>
+              </Card>
+            </div>
 
+            {/* Payment */}
+            <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Lock className="w-5 h-5 mr-2" />
+                    Secure Payment
+                  </CardTitle>
+                  <CardDescription>
+                    Pay securely with PayPal. Your payment information is
+                    encrypted and protected.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
                   {/* Terms Agreement */}
-                  <div className="flex items-start space-x-3">
+                  <div className="flex items-start space-x-2">
                     <Checkbox
                       id="terms"
                       checked={agreeToTerms}
-                      onCheckedChange={(checked) => setAgreeToTerms(!!checked)}
+                      onCheckedChange={(checked) => setAgreeToTerms(checked as boolean)}
                     />
-                    <label htmlFor="terms" className="text-sm leading-relaxed">
-                      I agree to the{" "}
-                      <Link
-                        to="/terms"
-                        className="text-primary hover:underline"
-                      >
-                        Terms of Service
-                      </Link>{" "}
-                      and{" "}
-                      <Link
-                        to="/privacy"
-                        className="text-primary hover:underline"
-                      >
-                        Privacy Policy
-                      </Link>
-                      . I understand that my account information will be handled
-                      securely.
-                    </label>
-                  </div>
-
-                  {/* Payment Button */}
-                  <Button
-                    onClick={handlePayPalPayment}
-                    disabled={!agreeToTerms || isProcessing}
-                    className="w-full h-12 text-lg bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
-                  >
-                    {isProcessing ? (
-                      <>
-                        <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin mr-2" />
-                        Processing Payment...
-                      </>
-                    ) : (
-                      <>
-                        <Lock className="w-5 h-5 mr-2" />
-                        Pay ${total.toFixed(2)} with PayPal
-                      </>
-                    )}
-                  </Button>
-
-                  {/* Security Features */}
-                  <div className="mt-6 p-4 bg-muted/50 rounded-lg">
-                    <h4 className="font-medium mb-3 flex items-center">
-                      <Shield className="w-4 h-4 mr-2 text-green-500" />
-                      Your Security is Guaranteed
-                    </h4>
-                    <div className="space-y-2 text-sm text-muted-foreground">
-                      <div className="flex items-center">
-                        <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
-                        SSL encrypted payment processing
-                      </div>
-                      <div className="flex items-center">
-                        <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
-                        No account details stored
-                      </div>
-                      <div className="flex items-center">
-                        <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
-                        100% account safety guarantee
-                      </div>
-                      <div className="flex items-center">
-                        <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
-                        24/7 customer support
-                      </div>
+                    <div className="text-sm">
+                      <label htmlFor="terms" className="cursor-pointer">
+                        I agree to the{" "}
+                        <Link
+                          to="/terms"
+                          className="text-primary hover:underline"
+                        >
+                          Terms of Service
+                        </Link>{" "}
+                        and{" "}
+                        <Link
+                          to="/privacy"
+                          className="text-primary hover:underline"
+                        >
+                          Privacy Policy
+                        </Link>
+                      </label>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
 
-            {/* Process Timeline */}
-            <Card className="border border-border/50 mt-6">
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Clock className="w-5 h-5 mr-2" />
-                  What Happens Next?
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-xs font-bold text-primary">1</span>
-                    </div>
-                    <div>
-                      <p className="font-medium">Instant Confirmation</p>
+                  {/* Guest validation */}
+                  {!isAuthenticated && (!guestInfo.name || !guestInfo.email) && (
+                    <div className="bg-muted/50 border border-border p-4 rounded-lg">
                       <p className="text-sm text-muted-foreground">
-                        You'll receive an email confirmation immediately
+                        Please fill in your contact information above to continue.
                       </p>
                     </div>
-                  </div>
+                  )}
 
-                  <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-xs font-bold text-primary">2</span>
+                  {/* PayPal Payment Button */}
+                  {agreeToTerms && (isAuthenticated || (guestInfo.name && guestInfo.email)) ? (
+                    <div className="space-y-4">
+                      <div className="bg-muted/50 border border-border p-4 rounded-lg">
+                        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                          <Shield className="w-4 h-4" />
+                          <span>
+                            Secured by PayPal • 256-bit SSL encryption
+                          </span>
+                        </div>
+                      </div>
+                      
+                      <PayPalButtons
+                        style={{
+                          layout: "vertical",
+                          color: "blue",
+                          shape: "rect",
+                          label: "paypal",
+                        }}
+                        createOrder={createPayPalOrder}
+                        onApprove={async (data, actions) => {
+                          const details = await actions.order.capture();
+                          handlePayPalSuccess(details, data);
+                        }}
+                        onError={handlePayPalError}
+                        onCancel={handlePayPalCancel}
+                        disabled={isProcessing}
+                      />
+
+                      {isProcessing && (
+                        <div className="text-center py-4">
+                          <div className="inline-flex items-center space-x-2 text-sm text-muted-foreground">
+                            <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                            <span>Processing your order...</span>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                    <div>
-                      <p className="font-medium">Booster Assignment</p>
+                  ) : (
+                    <div className="bg-muted/50 border border-border p-4 rounded-lg">
                       <p className="text-sm text-muted-foreground">
-                        Our team will assign an expert booster within 1 hour
+                        {!agreeToTerms
+                          ? "Please agree to the terms and conditions to continue."
+                          : "Please fill in your contact information to continue."}
                       </p>
                     </div>
-                  </div>
+                  )}
+                </CardContent>
+              </Card>
 
-                  <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-xs font-bold text-primary">3</span>
-                    </div>
-                    <div>
-                      <p className="font-medium">Boosting Begins</p>
-                      <p className="text-sm text-muted-foreground">
-                        Track progress in real-time through your account
-                      </p>
-                    </div>
+              {/* Security Features */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Why Choose PayPal?</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center space-x-2 text-sm">
+                    <Shield className="w-4 h-4 text-green-600" />
+                    <span>Your financial data is never shared</span>
                   </div>
-
-                  <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-xs font-bold text-primary">4</span>
-                    </div>
-                    <div>
-                      <p className="font-medium">Completion & Handover</p>
-                      <p className="text-sm text-muted-foreground">
-                        Your account is returned with all objectives completed
-                      </p>
-                    </div>
+                  <div className="flex items-center space-x-2 text-sm">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                    <span>PayPal Buyer Protection</span>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                  <div className="flex items-center space-x-2 text-sm">
+                    <Lock className="w-4 h-4 text-green-600" />
+                    <span>256-bit SSL encryption</span>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </PayPalScriptProvider>
   );
 }
