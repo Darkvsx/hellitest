@@ -93,6 +93,15 @@ export default function Login() {
                 Create a new account or sign in with existing credentials.
                 Admin accounts can be created with email ending in @helldivers.com
               </p>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={handleDebug}
+                className="mt-2 w-full"
+              >
+                Debug Auth
+              </Button>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
