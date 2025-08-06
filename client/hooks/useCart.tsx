@@ -61,16 +61,24 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
+  // Alias for addItem to match expected interface
+  const addToCart = addItem;
+
+  // Function to get cart item count
+  const getCartItemCount = () => itemCount;
+
   return (
     <CartContext.Provider
       value={{
         items,
         addItem,
+        addToCart,
         removeItem,
         updateQuantity,
         clearCart,
         total,
         itemCount,
+        getCartItemCount,
       }}
     >
       {children}
