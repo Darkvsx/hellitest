@@ -481,6 +481,17 @@ export default function Index() {
             </p>
           </div>
 
+          {/* Service Filter */}
+          {activeServices.length > 0 && (
+            <div className="mb-12">
+              <ServiceFilter
+                onFilterChange={setSelectedCategory}
+                activeFilter={selectedCategory}
+                serviceCounts={serviceCounts}
+              />
+            </div>
+          )}
+
           {activeServices.length === 0 ? (
             <div className="text-center py-20">
               <div className="w-20 h-20 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-8">
