@@ -238,10 +238,14 @@ export default function Index() {
                 className="border-primary/20 hover:bg-primary/10"
                 asChild
               >
-                <Link to="/admin">
-                  <User className="w-5 h-5 mr-2" />
-                  Admin Panel
-                </Link>
+                <a
+                  href="https://discord.gg/helldivers2boost"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MessageSquare className="w-5 h-5 mr-2" />
+                  Join Discord
+                </a>
               </Button>
             </div>
           ) : filteredServices.length === 0 ? (
