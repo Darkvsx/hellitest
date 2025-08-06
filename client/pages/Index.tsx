@@ -35,6 +35,7 @@ type ServiceCategory = 'All' | 'Level Boost' | 'Medals' | 'Samples' | 'Super Cre
 
 export default function Index() {
   const [selectedCategory, setSelectedCategory] = useState<ServiceCategory>('All');
+  const [scrolled, setScrolled] = useState(false);
   const { services } = useServices();
   const { addToCart } = useCart();
   const { toast } = useToast();
