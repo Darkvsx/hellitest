@@ -75,24 +75,30 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const total = items.reduce((sum, item) => sum + (item.service.price * item.quantity), 0);
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
-  // Alias for addItem to match expected interface
+  // Aliases to match expected interface
   const addToCart = addItem;
+  const removeFromCart = removeItem;
+  const cartItems = items;
 
-  // Function to get cart item count
+  // Functions to match expected interface
   const getCartItemCount = () => itemCount;
+  const getCartTotal = () => total;
 
   return (
     <CartContext.Provider
       value={{
         items,
+        cartItems,
         addItem,
         addToCart,
         removeItem,
+        removeFromCart,
         updateQuantity,
         clearCart,
         total,
         itemCount,
         getCartItemCount,
+        getCartTotal,
       }}
     >
       {children}
