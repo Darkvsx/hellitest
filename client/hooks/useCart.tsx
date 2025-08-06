@@ -2,21 +2,27 @@ import { createContext, useContext, useState, ReactNode } from "react";
 
 interface CartItem {
   id: string;
-  title: string;
-  price: number;
+  service: {
+    id: string;
+    title: string;
+    price: number;
+  };
   quantity: number;
 }
 
 interface CartContextType {
   items: CartItem[];
+  cartItems: CartItem[];
   addItem: (service: { id: string; title: string; price: number }) => void;
   addToCart: (service: { id: string; title: string; price: number }) => void;
   removeItem: (id: string) => void;
+  removeFromCart: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
   total: number;
   itemCount: number;
   getCartItemCount: () => number;
+  getCartTotal: () => number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
