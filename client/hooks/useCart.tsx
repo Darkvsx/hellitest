@@ -1,95 +1,74 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import { Service } from "./useServices";
 
-export interface CartItem {
+interface CartItem {
   id: string;
-  service: Service;
+  title: string;
+  price: number;
   quantity: number;
-  addedAt: string;
 }
 
 interface CartContextType {
-  cartItems: CartItem[];
-  addToCart: (service: Service, quantity?: number) => void;
-  removeFromCart: (serviceId: string) => void;
-  updateQuantity: (serviceId: string, quantity: number) => void;
+  items: CartItem[];
+  addItem: (service: { id: string; title: string; price: number }) => void;
+  removeItem: (id: string) => void;
+  updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
-  getCartTotal: () => number;
-  getCartItemCount: () => number;
+  total: number;
+  itemCount: number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [items, setItems] = useState<CartItem[]>([]);
 
-  const addToCart = (service: Service, quantity: number = 1) => {
-    setCartItems((prev) => {
-      const existingItem = prev.find((item) => item.service.id === service.id);
-
-      if (existingItem) {
-        return prev.map((item) =>
-          item.service.id === service.id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item,
+  const addItem = (service: { id: string; title: string; price: number }) => {
+    setItems((prev) => {
+      const existing = prev.find(item => item.id === service.id);
+      if (existing) {
+        return prev.map(item =>
+          item.id === service.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
         );
-      } else {
-        return [
-          ...prev,
-          {
-            id: Date.now().toString(),
-            service,
-            quantity,
-            addedAt: new Date().toISOString(),
-          },
-        ];
       }
+      return [...prev, { ...service, quantity: 1 }];
     });
   };
 
-  const removeFromCart = (serviceId: string) => {
-    setCartItems((prev) =>
-      prev.filter((item) => item.service.id !== serviceId),
-    );
+  const removeItem = (id: string) => {
+    setItems((prev) => prev.filter(item => item.id !== id));
   };
 
-  const updateQuantity = (serviceId: string, quantity: number) => {
+  const updateQuantity = (id: string, quantity: number) => {
     if (quantity <= 0) {
-      removeFromCart(serviceId);
+      removeItem(id);
       return;
     }
-
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.service.id === serviceId ? { ...item, quantity } : item,
-      ),
+    setItems((prev) =>
+      prev.map(item =>
+        item.id === id ? { ...item, quantity } : item
+      )
     );
   };
 
   const clearCart = () => {
-    setCartItems([]);
+    setItems([]);
   };
 
-  const getCartTotal = () => {
-    return cartItems.reduce((total, item) => {
-      return total + item.service.price * item.quantity;
-    }, 0);
-  };
-
-  const getCartItemCount = () => {
-    return cartItems.reduce((count, item) => count + item.quantity, 0);
-  };
+  const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <CartContext.Provider
       value={{
-        cartItems,
-        addToCart,
-        removeFromCart,
+        items,
+        addItem,
+        removeItem,
         updateQuantity,
         clearCart,
-        getCartTotal,
-        getCartItemCount,
+        total,
+        itemCount,
       }}
     >
       {children}
