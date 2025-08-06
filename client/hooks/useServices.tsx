@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { supabase } from '../lib/supabase';
-import { seedServices } from '../lib/seedData';
 import type { Database } from '../lib/supabase';
 
 type ServiceRow = Database['public']['Tables']['services']['Row'];
