@@ -145,21 +145,7 @@ export default function Contact() {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-          <Card className="border border-border/50 hover:border-primary/30 transition-colors cursor-pointer group">
-            <CardContent className="p-6 text-center">
-              <div className="w-12 h-12 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                <MessageSquare className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="font-semibold mb-2">Live Chat</h3>
-              <p className="text-sm text-muted-foreground mb-3">
-                Get instant help from our support team
-              </p>
-              <Badge className="bg-green-500/20 text-green-700">
-                Average response: 2 min
-              </Badge>
-            </CardContent>
-          </Card>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
 
           <Card className="border border-border/50 hover:border-primary/30 transition-colors cursor-pointer group">
             <CardContent className="p-6 text-center">
@@ -411,17 +397,6 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center">
-                    <MessageSquare className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="font-medium">Live Chat</p>
-                    <p className="text-sm text-muted-foreground">
-                      Available 24/7 on our website
-                    </p>
-                  </div>
-                </div>
 
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center">
@@ -513,17 +488,9 @@ export default function Contact() {
                     </h3>
                     <p className="text-sm text-muted-foreground mb-3">
                       For payment problems, security concerns, or account access
-                      issues, contact us immediately via live chat.
+                      issues, contact us immediately via Discord or email.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-2">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="border-red-500/20 hover:bg-red-500/10"
-                      >
-                        <MessageSquare className="w-4 h-4 mr-2" />
-                        Emergency Chat
-                      </Button>
                       <Button
                         size="sm"
                         variant="outline"

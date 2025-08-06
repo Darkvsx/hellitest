@@ -270,7 +270,6 @@ export default function Terms() {
                 </p>
                 <ul className="list-disc list-inside space-y-2 text-muted-foreground">
                   <li>Email: support@helldivers-boost.com</li>
-                  <li>Live Chat: Available 24/7 on our website</li>
                   <li>Contact Form: Available on our contact page</li>
                 </ul>
               </CardContent>

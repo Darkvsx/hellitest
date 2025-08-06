@@ -87,7 +87,7 @@ export default function Privacy() {
                     us)
                   </li>
                   <li>
-                    Communication records (support tickets, live chat messages)
+                    Communication records (support tickets, email messages)
                   </li>
                 </ul>
 
@@ -329,7 +329,6 @@ export default function Privacy() {
                 <ul className="list-disc list-inside space-y-2 text-muted-foreground">
                   <li>Email: privacy@helldivers-boost.com</li>
                   <li>Support Email: support@helldivers-boost.com</li>
-                  <li>Live Chat: Available 24/7 on our website</li>
                   <li>Contact Form: Available on our contact page</li>
                 </ul>
               </CardContent>
