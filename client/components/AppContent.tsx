@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { LiveChat } from "@/components/LiveChat";
+import { Layout } from "@/components/Layout";
 import Index from "../pages/Index";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
