@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { debugAuth } from "@/lib/authDebug";
 import { Button } from "@/components/ui/button";
 import {
   Card,
