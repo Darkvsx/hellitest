@@ -27,6 +27,7 @@ export interface Service {
   active: boolean
   popular: boolean
   orders_count: number
+  category: 'Level Boost' | 'Medals' | 'Samples' | 'Super Credits' | 'Promotions'
   created_at: string
   updated_at: string
 }
