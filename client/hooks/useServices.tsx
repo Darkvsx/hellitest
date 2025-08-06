@@ -12,6 +12,7 @@ export interface ServiceData {
   features: string[];
   active: boolean;
   popular?: boolean;
+  category: 'Level Boost' | 'Medals' | 'Samples' | 'Super Credits' | 'Promotions';
   createdAt: string;
   orders: number;
 }
