@@ -161,7 +161,7 @@ export default function Checkout() {
         intent: "capture",
       }}
     >
-      <div className="min-h-screen bg-background py-12">
+      <div className="bg-background py-12 min-h-[calc(100vh-8rem)]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-8">
