@@ -15,11 +15,6 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { ServiceFilter } from "@/components/ServiceFilter";
 import {
-  ShoppingCart,
-  User,
-  LogIn,
-  Menu,
-  X,
   Star,
   Shield,
   Clock,
