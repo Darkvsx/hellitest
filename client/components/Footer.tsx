@@ -101,7 +101,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2 text-sm text-muted-foreground hover:text-primary transition-colors"
               >
-                <Discord className="w-4 h-4" />
+                <MessageCircle className="w-4 h-4" />
                 <span>Join Discord</span>
                 <ExternalLink className="w-3 h-3" />
               </a>
