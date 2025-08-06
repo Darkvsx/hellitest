@@ -42,6 +42,7 @@ export function ServicesProvider({ children }: { children: ReactNode }) {
     features: service.features,
     active: service.active,
     popular: service.popular,
+    category: service.category,
     createdAt: service.created_at,
     orders: service.orders_count
   });
