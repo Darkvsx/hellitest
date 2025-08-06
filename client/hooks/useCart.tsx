@@ -53,7 +53,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
 
   const removeItem = (id: string) => {
-    setItems((prev) => prev.filter(item => item.id !== id));
+    setItems((prev) => prev.filter(item => item.service.id !== id));
   };
 
   const updateQuantity = (id: string, quantity: number) => {
@@ -63,7 +63,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
     setItems((prev) =>
       prev.map(item =>
-        item.id === id ? { ...item, quantity } : item
+        item.service.id === id ? { ...item, quantity } : item
       )
     );
   };
@@ -72,7 +72,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems([]);
   };
 
-  const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const total = items.reduce((sum, item) => sum + (item.service.price * item.quantity), 0);
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   // Alias for addItem to match expected interface
