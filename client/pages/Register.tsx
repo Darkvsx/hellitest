@@ -50,7 +50,6 @@ export default function Register() {
     }
 
     try {
-      console.log('Starting registration process...');
       const success = await register(formData.email, formData.password, formData.username);
 
       if (success) {
@@ -59,11 +58,10 @@ export default function Register() {
           navigate("/login");
         }, 2000);
       } else {
-        setError("Registration failed. Please check the console for details and try again.");
+        setError("Registration failed. Please try again.");
       }
     } catch (err) {
-      console.error('Registration form error:', err);
-      setError(`Registration failed: ${err instanceof Error ? err.message : 'Unknown error'}`);
+      setError("Registration failed. Please try again.");
     } finally {
       setIsLoading(false);
     }
