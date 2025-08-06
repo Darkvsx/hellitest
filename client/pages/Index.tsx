@@ -35,17 +35,30 @@ import {
   ArrowUp,
 } from "lucide-react";
 
+type ServiceCategory = 'All' | 'Level Boost' | 'Medals' | 'Samples' | 'Super Credits' | 'Promotions';
+
 export default function Index() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<ServiceCategory>('All');
   const { isAuthenticated, isAdmin, user, logout } = useAuth();
   const { services } = useServices();
   const { addToCart, getCartItemCount } = useCart();
   const { toast } = useToast();
 
-  // Only show active services on homepage
+  // Filter services by category and active status
   const activeServices = services.filter((service) => service.active);
+  const filteredServices = selectedCategory === 'All'
+    ? activeServices
+    : activeServices.filter(service => service.category === selectedCategory);
+
   const cartItemCount = getCartItemCount();
+
+  // Calculate service counts by category
+  const serviceCounts = activeServices.reduce((counts, service) => {
+    counts[service.category] = (counts[service.category] || 0) + 1;
+    return counts;
+  }, {} as Record<string, number>);
 
   const handleAddToCart = (service: any) => {
     addToCart(service);
