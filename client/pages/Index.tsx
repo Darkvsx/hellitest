@@ -39,12 +39,9 @@ import {
 type ServiceCategory = 'All' | 'Level Boost' | 'Medals' | 'Samples' | 'Super Credits' | 'Promotions';
 
 export default function Index() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<ServiceCategory>('All');
-  const { isAuthenticated, isAdmin, user, logout } = useAuth();
   const { services } = useServices();
-  const { addToCart, getCartItemCount } = useCart();
+  const { addToCart } = useCart();
   const { toast } = useToast();
 
   // Filter services by category and active status
