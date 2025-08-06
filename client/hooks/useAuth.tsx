@@ -92,7 +92,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const fetchUserProfile = async (supabaseUser: SupabaseUser) => {
     try {
       console.log('Fetching profile for user:', supabaseUser.id);
-      
+
       const { data: profile, error } = await supabase
         .from('profiles')
         .select('*')
@@ -101,8 +101,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (error && error.code !== 'PGRST116') {
         console.error('Error fetching profile:', error);
-        setAuthState({ user: null, loading: false });
-        return;
+
+        // If profile doesn't exist, try to create it
+        if (error.code === 'PGRST116') {
+          console.log('Profile not found, creating new profile...');
+          const { data: newProfile, error: createError } = await supabase
+            .from('profiles')
+            .insert({
+              user_id: supabaseUser.id,
+              username: supabaseUser.email?.split('@')[0] || 'User',
+              display_name: supabaseUser.email?.split('@')[0] || 'User',
+              email: supabaseUser.email || '',
+              role: supabaseUser.email?.includes('@helldivers.com') ? 'admin' : 'user'
+            })
+            .select()
+            .single();
+
+          if (createError) {
+            console.error('Error creating profile:', createError);
+            setAuthState({ user: null, loading: false });
+            return;
+          }
+
+          profile = newProfile;
+        } else {
+          setAuthState({ user: null, loading: false });
+          return;
+        }
       }
 
       const user: User = {
