@@ -514,6 +514,25 @@ export default function Index() {
                 </Link>
               </Button>
             </div>
+          ) : filteredServices.length === 0 ? (
+            <div className="text-center py-20">
+              <div className="w-20 h-20 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-8">
+                <Filter className="w-10 h-10 text-primary" />
+              </div>
+              <h3 className="text-3xl font-bold mb-6">No Services Found</h3>
+              <p className="text-muted-foreground max-w-md mx-auto mb-8 text-lg">
+                No services available in the "{selectedCategory}" category. Try selecting a different category.
+              </p>
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => setSelectedCategory('All')}
+                className="border-primary/20 hover:bg-primary/10"
+              >
+                <Target className="w-5 h-5 mr-2" />
+                View All Services
+              </Button>
+            </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredServices.map((service) => (
