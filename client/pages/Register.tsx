@@ -31,12 +31,6 @@ export default function Register() {
   const { register } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Test Supabase connection on page load
-    testSupabaseConnection();
-    testSupabaseAuth();
-  }, []);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
