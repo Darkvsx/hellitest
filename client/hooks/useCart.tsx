@@ -32,15 +32,23 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const addItem = (service: { id: string; title: string; price: number }) => {
     setItems((prev) => {
-      const existing = prev.find(item => item.id === service.id);
+      const existing = prev.find(item => item.service.id === service.id);
       if (existing) {
         return prev.map(item =>
-          item.id === service.id
+          item.service.id === service.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       }
-      return [...prev, { ...service, quantity: 1 }];
+      return [...prev, {
+        id: service.id,
+        service: {
+          id: service.id,
+          title: service.title,
+          price: service.price
+        },
+        quantity: 1
+      }];
     });
   };
 
