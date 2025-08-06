@@ -33,6 +33,7 @@ import {
   Gamepad2,
   MessageSquare,
   ArrowUp,
+  Filter,
 } from "lucide-react";
 
 type ServiceCategory = 'All' | 'Level Boost' | 'Medals' | 'Samples' | 'Super Credits' | 'Promotions';
