@@ -53,24 +53,33 @@ export interface Database {
       profiles: {
         Row: {
           id: string
+          user_id: string
           username: string | null
+          display_name: string | null
           email: string | null
+          avatar_url: string | null
           role: 'user' | 'admin'
           created_at: string
           updated_at: string
         }
         Insert: {
-          id: string
+          id?: string
+          user_id: string
           username?: string | null
+          display_name?: string | null
           email?: string | null
+          avatar_url?: string | null
           role?: 'user' | 'admin'
           created_at?: string
           updated_at?: string
         }
         Update: {
           id?: string
+          user_id?: string
           username?: string | null
+          display_name?: string | null
           email?: string | null
+          avatar_url?: string | null
           role?: 'user' | 'admin'
           created_at?: string
           updated_at?: string
