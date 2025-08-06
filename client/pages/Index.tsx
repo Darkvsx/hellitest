@@ -78,8 +78,12 @@ export default function Index() {
             {/* Logo */}
             <div className="flex items-center space-x-3">
               <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-r from-primary to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                  <Target className="w-6 h-6 text-white" />
+                <div className="w-10 h-10 bg-gradient-to-r from-primary to-blue-600 rounded-xl flex items-center justify-center shadow-lg p-1">
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets%2F140080265ae84fed81345db6d679ba75%2F0ba66a9961654e799d47f40a907b95dc?format=webp&width=64"
+                    alt="HelldiversBoost Logo"
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full animate-pulse"></div>
               </div>
