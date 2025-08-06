@@ -533,9 +533,14 @@ export default function Index() {
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                   <CardHeader className="relative z-10">
-                    <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                      {service.title}
-                    </CardTitle>
+                    <div className="flex items-start justify-between mb-2">
+                      <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                        {service.title}
+                      </CardTitle>
+                      <Badge variant="outline" className="text-xs bg-background/50">
+                        {service.category}
+                      </Badge>
+                    </div>
                     <CardDescription className="text-base">
                       {service.description}
                     </CardDescription>
