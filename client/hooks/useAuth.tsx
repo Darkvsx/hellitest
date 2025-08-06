@@ -92,17 +92,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const fetchUserProfile = async (supabaseUser: SupabaseUser) => {
     try {
       console.log('Fetching profile for user:', supabaseUser.id);
-
+      
       const { data: profile, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('user_id', supabaseUser.id)
         .single();
 
-      if (error && error.code !== 'PGRST116') {
+      if (error) {
         console.error('Error fetching profile:', error);
-
-        // If profile doesn't exist, try to create it
+        
+        // If profile doesn't exist, create it
         if (error.code === 'PGRST116') {
           console.log('Profile not found, creating new profile...');
           const { data: newProfile, error: createError } = await supabase
@@ -116,14 +116,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             })
             .select()
             .single();
-
+            
           if (createError) {
             console.error('Error creating profile:', createError);
             setAuthState({ user: null, loading: false });
             return;
           }
+          
+          const user: User = {
+            id: supabaseUser.id,
+            username: newProfile.username || 'User',
+            email: supabaseUser.email || '',
+            role: newProfile.role || 'user'
+          };
 
-          profile = newProfile;
+          console.log('New profile created:', user);
+          setAuthState({ user, loading: false });
+          return;
         } else {
           setAuthState({ user: null, loading: false });
           return;
@@ -132,9 +141,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       const user: User = {
         id: supabaseUser.id,
-        username: profile?.username || profile?.display_name || supabaseUser.email?.split('@')[0] || 'User',
+        username: profile.username || profile.display_name || supabaseUser.email?.split('@')[0] || 'User',
         email: supabaseUser.email || '',
-        role: profile?.role || 'user'
+        role: profile.role || 'user'
       };
 
       console.log('Profile loaded:', user);
@@ -148,18 +157,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
       console.log('Attempting login for:', email);
-
-      // Add timeout to prevent hanging
-      const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Login timeout')), 10000)
-      );
-
-      const loginPromise = supabase.auth.signInWithPassword({
+      
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password
       });
-
-      const { data, error } = await Promise.race([loginPromise, timeoutPromise]) as any;
 
       if (error) {
         console.error('Login error:', error.message);
@@ -177,23 +179,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const register = async (email: string, password: string, username: string): Promise<boolean> => {
     try {
       console.log('Attempting registration for:', email);
-
-      // Add timeout to prevent hanging
-      const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Registration timeout')), 10000)
-      );
-
-      const registerPromise = supabase.auth.signUp({
+      
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: {
-            username
+            username,
+            display_name: username
           }
         }
       });
-
-      const { data, error } = await Promise.race([registerPromise, timeoutPromise]) as any;
 
       console.log('Supabase response:', { data, error });
 
