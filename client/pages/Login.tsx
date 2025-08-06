@@ -52,6 +52,16 @@ export default function Login() {
     }
   };
 
+  const handleDebug = async () => {
+    setError("Running debug... Check console for details.");
+    const result = await debugAuth();
+    if (result) {
+      setError("Debug completed successfully! Check console for details.");
+    } else {
+      setError("Debug failed! Check console for details.");
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted p-4">
       <div className="w-full max-w-md">
