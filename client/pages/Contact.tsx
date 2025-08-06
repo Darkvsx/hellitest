@@ -176,11 +176,8 @@ export default function Contact() {
             </CardContent>
           </Card>
 
-          <Card
-            className="border border-border/50 hover:border-primary/30 transition-colors cursor-pointer group"
-            asChild
-          >
-            <Link to="/faq">
+          <Link to="/faq">
+            <Card className="border border-border/50 hover:border-primary/30 transition-colors cursor-pointer group">
               <CardContent className="p-6 text-center">
                 <div className="w-12 h-12 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                   <HelpCircle className="w-6 h-6 text-primary" />
@@ -193,18 +190,15 @@ export default function Contact() {
                   Instant answers
                 </Badge>
               </CardContent>
-            </Link>
-          </Card>
+            </Card>
+          </Link>
 
-          <Card
-            className="border border-border/50 hover:border-primary/30 transition-colors cursor-pointer group"
-            asChild
+          <a
+            href="https://discord.gg/helldivers2boost"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <a
-              href="https://discord.gg/helldivers2boost"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Card className="border border-border/50 hover:border-primary/30 transition-colors cursor-pointer group">
               <CardContent className="p-6 text-center">
                 <div className="w-12 h-12 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                   <MessageSquare className="w-6 h-6 text-primary" />
@@ -217,8 +211,8 @@ export default function Contact() {
                   Active community
                 </Badge>
               </CardContent>
-            </a>
-          </Card>
+            </Card>
+          </a>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -534,16 +528,10 @@ export default function Contact() {
                         size="sm"
                         variant="outline"
                         className="border-red-500/20 hover:bg-red-500/10"
-                        asChild
+                        onClick={() => window.open('https://discord.gg/helldivers2boost', '_blank')}
                       >
-                        <a
-                          href="https://discord.gg/helldivers2boost"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <MessageSquare className="w-4 h-4 mr-2" />
-                          Discord Support
-                        </a>
+                        <MessageSquare className="w-4 h-4 mr-2" />
+                        Discord Support
                       </Button>
                     </div>
                   </div>
