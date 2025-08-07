@@ -17,7 +17,7 @@ export function Navbar() {
   const { isAuthenticated, isAdmin, user, logout } = useAuth();
   const { getCartItemCount } = useCart();
 
-  const cartItemCount = getCartItemCount();
+  const cartItemCount = isAuthenticated ? getCartItemCount() : 0;
 
   // Handle scroll effect for navbar
   useEffect(() => {
