@@ -102,7 +102,6 @@ export default function Account() {
   const handleAccountUpdate = (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: Implement account update logic
-    console.log("Account update:", accountData);
     alert("Account information updated successfully!");
   };
 
@@ -120,7 +119,6 @@ export default function Account() {
     }
 
     // TODO: Implement password change logic
-    console.log("Password change request");
     alert("Password changed successfully!");
 
     setAccountData((prev) => ({

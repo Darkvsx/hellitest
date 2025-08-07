@@ -78,7 +78,6 @@ export default function Checkout() {
   }
 
   const handlePayPalSuccess = async (details: any, data: any) => {
-    console.log("PayPal payment successful:", { details, data });
     setIsProcessing(true);
 
     try {
@@ -133,7 +132,6 @@ export default function Checkout() {
   };
 
   const handlePayPalCancel = (data: any) => {
-    console.log("PayPal payment cancelled:", data);
     toast({
       title: "Payment cancelled",
       description:

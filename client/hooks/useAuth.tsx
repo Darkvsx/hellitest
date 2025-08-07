@@ -51,7 +51,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const loadUserProfile = async (userId: string) => {
     try {
-      console.log('Loading profile for user:', userId);
 
       const { data: profile, error } = await supabase
         .from('profiles')
@@ -61,7 +60,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (error && error.code === 'PGRST116') {
         // Profile doesn't exist, try to create it
-        console.log('Profile not found, creating new profile...');
 
         // Get user data from auth.users
         const { data: userData } = await supabase.auth.getUser();
@@ -81,7 +79,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           if (createError) {
             console.error('Error creating profile:', createError);
           } else if (newProfile) {
-            console.log('Profile created successfully:', newProfile);
             setUser({
               id: newProfile.id,
               username: newProfile.username || 'User',
@@ -91,7 +88,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           }
         }
       } else if (profile) {
-        console.log('Profile loaded successfully:', profile);
         setUser({
           id: profile.id,
           username: profile.username || 'User',
@@ -108,7 +104,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      console.log('Attempting login for:', email);
 
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
@@ -121,7 +116,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       if (data.user) {
-        console.log('Login successful for user:', data.user.id);
         return true;
       }
 
