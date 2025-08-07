@@ -5,6 +5,7 @@
 This project is configured for seamless deployment on Vercel.
 
 ### Prerequisites
+
 - Vercel account linked to your GitHub repository
 - Supabase project with the database schema set up
 - PayPal developer account with API credentials
@@ -25,17 +26,20 @@ VITE_PAYPAL_CLIENT_ID=AefD8SednJLcqfFDsiO9AetjGEsCMVPYSCp-gX-UmUyJsQvSUHgbhnl39Z
 ### Deployment Steps
 
 1. **Import to Vercel:**
+
    - Go to [vercel.com/new](https://vercel.com/new)
    - Import your GitHub repository
    - Vercel will auto-detect it as a Vite project
 
 2. **Configure Build Settings:**
+
    - Framework Preset: `Vite`
    - Build Command: `npm run build`
    - Output Directory: `dist/spa`
    - Install Command: `npm install`
 
 3. **Add Environment Variables:**
+
    - Go to Project Settings → Environment Variables
    - Add all the variables listed above
 
@@ -51,7 +55,7 @@ VITE_PAYPAL_CLIENT_ID=AefD8SednJLcqfFDsiO9AetjGEsCMVPYSCp-gX-UmUyJsQvSUHgbhnl39Z
 ✅ **Responsive Design** - Mobile-first design  
 ✅ **SEO Optimized** - Meta tags and proper routing  
 ✅ **Security Headers** - XSS protection, content security  
-✅ **Fast Loading** - Optimized builds and caching  
+✅ **Fast Loading** - Optimized builds and caching
 
 ### Post-Deployment Checklist
 
@@ -66,6 +70,7 @@ VITE_PAYPAL_CLIENT_ID=AefD8SednJLcqfFDsiO9AetjGEsCMVPYSCp-gX-UmUyJsQvSUHgbhnl39Z
 ### Custom Domain (Optional)
 
 To use a custom domain:
+
 1. Go to Project Settings → Domains
 2. Add your domain
 3. Configure DNS records as instructed by Vercel
@@ -79,6 +84,7 @@ To use a custom domain:
 ## 🎮 Your Helldivers 2 Boosting Site is Ready!
 
 Your professional boosting website is now live with:
+
 - Secure payment processing
 - User authentication
 - Service management
