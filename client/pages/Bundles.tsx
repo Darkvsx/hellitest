@@ -138,6 +138,15 @@ export default function Bundles() {
   const { toast } = useToast();
 
   const handleAddBundle = (bundle: Bundle) => {
+    if (!isAuthenticated) {
+      toast({
+        title: "Login required",
+        description: "Please log in to add bundles to your cart.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     // Create a bundle service object
     const bundleService = {
       id: bundle.id,
