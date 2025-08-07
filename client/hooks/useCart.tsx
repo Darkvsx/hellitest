@@ -31,6 +31,17 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
 
+  // Clear cart when user logs out
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'SIGNED_OUT') {
+        setItems([]);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   const addItem = (service: { id: string; title: string; price: number }) => {
     setItems((prev) => {
       const existing = prev.find(item => item.service.id === service.id);
