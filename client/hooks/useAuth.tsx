@@ -144,6 +144,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = async () => {
     await supabase.auth.signOut();
+    setUser(null);
+    // Note: Cart will be cleared by the cart provider's own auth state management
   };
 
   const isAuthenticated = user !== null;
