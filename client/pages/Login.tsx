@@ -83,7 +83,6 @@ export default function Login() {
               <p className="font-medium mb-2">Welcome to HelldiversBoost!</p>
               <p className="text-xs text-muted-foreground">
                 Sign in to your account or create a new one to get started.
-                Admin accounts can be created with @helldivers.com email addresses.
               </p>
             </div>
 
