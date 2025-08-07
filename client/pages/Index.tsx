@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useServices } from "@/hooks/useServices";
 import { useCart } from "@/hooks/useCart";
+import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import {
@@ -36,6 +37,7 @@ export default function Index() {
   const [scrolled, setScrolled] = useState(false);
   const { services } = useServices();
   const { addToCart } = useCart();
+  const { isAuthenticated } = useAuth();
   const { toast } = useToast();
 
   // Filter services by category and active status
@@ -51,6 +53,15 @@ export default function Index() {
   }, {} as Record<string, number>);
 
   const handleAddToCart = (service: any) => {
+    if (!isAuthenticated) {
+      toast({
+        title: "Login required",
+        description: "Please log in to add items to your cart.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     addToCart(service);
     toast({
       title: "Added to cart!",
@@ -348,7 +359,7 @@ export default function Index() {
                         onClick={() => handleAddToCart(service)}
                       >
                         <ShoppingCart className="w-4 h-4 mr-2" />
-                        Add to Cart
+                        {isAuthenticated ? "Add to Cart" : "Login to Order"}
                         <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                       </Button>
                     </div>
