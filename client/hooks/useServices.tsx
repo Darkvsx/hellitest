@@ -1,6 +1,9 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { supabase, type Service } from '../lib/supabase';
 
+// Export Service type for use in other components
+export type { Service };
+
 export interface ServiceData {
   id: string;
   title: string;
@@ -17,7 +20,7 @@ export interface ServiceData {
   orders: number;
 }
 
-interface ServicesContextType {
+export interface ServicesContextType {
   services: ServiceData[];
   loading: boolean;
   error: string | null;

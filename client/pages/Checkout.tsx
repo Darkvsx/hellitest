@@ -28,7 +28,7 @@ import {
   MessageSquare,
   ArrowLeft,
   Lock,
-  PaypalIcon as Paypal,
+  CreditCard as Paypal,
   Package,
 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -159,7 +159,7 @@ export default function Checkout() {
   return (
     <PayPalScriptProvider
       options={{
-        "client-id": PAYPAL_CLIENT_ID,
+        clientId: PAYPAL_CLIENT_ID,
         currency: "USD",
         intent: "capture",
       }}

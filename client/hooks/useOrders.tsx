@@ -11,7 +11,7 @@ export interface Order {
     price: number;
     quantity: number;
   }[];
-  status: "pending" | "processing" | "in-progress" | "completed" | "cancelled";
+  status: "pending" | "in-progress" | "completed" | "cancelled";
   totalAmount: number;
   paymentStatus: "pending" | "paid" | "failed" | "refunded";
   createdAt: string;
@@ -28,6 +28,10 @@ export interface Order {
     timestamp: string;
     description: string;
   }[];
+  notes?: string;
+  progress?: number;
+  assignedBooster?: string;
+  estimatedCompletion?: string;
 }
 
 interface OrdersContextType {
