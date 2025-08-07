@@ -29,7 +29,11 @@ const NotFound = () => {
         <p className="text-muted-foreground mb-8 text-lg">
           The page you're looking for doesn't exist or has been moved.
         </p>
-        <Button asChild size="lg" className="bg-gradient-to-r from-primary to-blue-600">
+        <Button
+          asChild
+          size="lg"
+          className="bg-gradient-to-r from-primary to-blue-600"
+        >
           <Link to="/">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Return to Home

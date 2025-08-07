@@ -36,7 +36,12 @@ export interface Order {
 
 interface OrdersContextType {
   orders: Order[];
-  addOrder: (order: Omit<Order, "id" | "createdAt" | "updatedAt" | "messages" | "tracking">) => string;
+  addOrder: (
+    order: Omit<
+      Order,
+      "id" | "createdAt" | "updatedAt" | "messages" | "tracking"
+    >,
+  ) => string;
   getUserOrders: (userId: string) => Order[];
   getOrder: (orderId: string) => Order | undefined;
 }
@@ -46,7 +51,12 @@ const OrdersContext = createContext<OrdersContextType | undefined>(undefined);
 export function OrdersProvider({ children }: { children: ReactNode }) {
   const [orders, setOrders] = useState<Order[]>([]);
 
-  const addOrder = (orderData: Omit<Order, "id" | "createdAt" | "updatedAt" | "messages" | "tracking">): string => {
+  const addOrder = (
+    orderData: Omit<
+      Order,
+      "id" | "createdAt" | "updatedAt" | "messages" | "tracking"
+    >,
+  ): string => {
     const orderId = `ORD-${Date.now()}`;
     const newOrder: Order = {
       ...orderData,

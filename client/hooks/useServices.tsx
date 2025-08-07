@@ -1,5 +1,11 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { supabase, type Service } from '../lib/supabase';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+import { supabase, type Service } from "../lib/supabase";
 
 // Export Service type for use in other components
 export type { Service };
@@ -15,7 +21,12 @@ export interface ServiceData {
   features: string[];
   active: boolean;
   popular?: boolean;
-  category: 'Level Boost' | 'Medals' | 'Samples' | 'Super Credits' | 'Promotions';
+  category:
+    | "Level Boost"
+    | "Medals"
+    | "Samples"
+    | "Super Credits"
+    | "Promotions";
   createdAt: string;
   orders: number;
 }
@@ -27,7 +38,9 @@ export interface ServicesContextType {
   refreshServices: () => Promise<void>;
 }
 
-const ServicesContext = createContext<ServicesContextType | undefined>(undefined);
+const ServicesContext = createContext<ServicesContextType | undefined>(
+  undefined,
+);
 
 export function ServicesProvider({ children }: { children: ReactNode }) {
   const [services, setServices] = useState<ServiceData[]>([]);
@@ -39,7 +52,9 @@ export function ServicesProvider({ children }: { children: ReactNode }) {
     title: service.title,
     description: service.description,
     price: Number(service.price),
-    originalPrice: service.original_price ? Number(service.original_price) : undefined,
+    originalPrice: service.original_price
+      ? Number(service.original_price)
+      : undefined,
     duration: service.duration,
     difficulty: service.difficulty,
     features: service.features,
@@ -47,19 +62,19 @@ export function ServicesProvider({ children }: { children: ReactNode }) {
     popular: service.popular,
     category: service.category,
     createdAt: service.created_at,
-    orders: service.orders_count
+    orders: service.orders_count,
   });
 
   const refreshServices = async () => {
     try {
       setLoading(true);
       setError(null);
-      
+
       const { data, error: fetchError } = await supabase
-        .from('services')
-        .select('*')
-        .eq('active', true)
-        .order('created_at', { ascending: false });
+        .from("services")
+        .select("*")
+        .eq("active", true)
+        .order("created_at", { ascending: false });
 
       if (fetchError) {
         throw fetchError;
@@ -68,8 +83,8 @@ export function ServicesProvider({ children }: { children: ReactNode }) {
       const mappedServices = data?.map(mapService) || [];
       setServices(mappedServices);
     } catch (err) {
-      console.error('Error fetching services:', err);
-      setError('Failed to load services');
+      console.error("Error fetching services:", err);
+      setError("Failed to load services");
     } finally {
       setLoading(false);
     }

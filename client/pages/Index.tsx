@@ -30,10 +30,17 @@ import {
   User,
 } from "lucide-react";
 
-type ServiceCategory = 'All' | 'Level Boost' | 'Medals' | 'Samples' | 'Super Credits' | 'Promotions';
+type ServiceCategory =
+  | "All"
+  | "Level Boost"
+  | "Medals"
+  | "Samples"
+  | "Super Credits"
+  | "Promotions";
 
 export default function Index() {
-  const [selectedCategory, setSelectedCategory] = useState<ServiceCategory>('All');
+  const [selectedCategory, setSelectedCategory] =
+    useState<ServiceCategory>("All");
   const [scrolled, setScrolled] = useState(false);
   const { services } = useServices();
   const { addToCart } = useCart();
@@ -42,15 +49,21 @@ export default function Index() {
 
   // Filter services by category and active status
   const activeServices = services.filter((service) => service.active);
-  const filteredServices = selectedCategory === 'All'
-    ? activeServices
-    : activeServices.filter(service => service.category === selectedCategory);
+  const filteredServices =
+    selectedCategory === "All"
+      ? activeServices
+      : activeServices.filter(
+          (service) => service.category === selectedCategory,
+        );
 
   // Calculate service counts by category
-  const serviceCounts = activeServices.reduce((counts, service) => {
-    counts[service.category] = (counts[service.category] || 0) + 1;
-    return counts;
-  }, {} as Record<string, number>);
+  const serviceCounts = activeServices.reduce(
+    (counts, service) => {
+      counts[service.category] = (counts[service.category] || 0) + 1;
+      return counts;
+    },
+    {} as Record<string, number>,
+  );
 
   const handleAddToCart = (service: any) => {
     if (!isAuthenticated) {
@@ -80,7 +93,6 @@ export default function Index() {
 
   return (
     <div className="bg-gradient-to-br from-background via-background to-background/80">
-
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
         {/* Background Effects */}
@@ -266,12 +278,13 @@ export default function Index() {
               </div>
               <h3 className="text-3xl font-bold mb-6">No Services Found</h3>
               <p className="text-muted-foreground max-w-md mx-auto mb-8 text-lg">
-                No services available in the "{selectedCategory}" category. Try selecting a different category.
+                No services available in the "{selectedCategory}" category. Try
+                selecting a different category.
               </p>
               <Button
                 variant="outline"
                 size="lg"
-                onClick={() => setSelectedCategory('All')}
+                onClick={() => setSelectedCategory("All")}
                 className="border-primary/20 hover:bg-primary/10"
               >
                 <Target className="w-5 h-5 mr-2" />
@@ -301,7 +314,10 @@ export default function Index() {
                       <CardTitle className="text-xl group-hover:text-primary transition-colors">
                         {service.title}
                       </CardTitle>
-                      <Badge variant="outline" className="text-xs bg-background/50">
+                      <Badge
+                        variant="outline"
+                        className="text-xs bg-background/50"
+                      >
                         {service.category}
                       </Badge>
                     </div>
@@ -408,7 +424,6 @@ export default function Index() {
           </div>
         </div>
       </section>
-
 
       {/* Scroll to top button */}
       <Button
