@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { useAuth } from "./useAuth";
+import { supabase } from "../lib/supabase";
 
 interface CartItem {
   id: string;
