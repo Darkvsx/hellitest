@@ -34,7 +34,9 @@ import {
 import { Link } from "react-router-dom";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
-const PAYPAL_CLIENT_ID = import.meta.env.VITE_PAYPAL_CLIENT_ID || "AefD8SednJLcqfFDsiO9AetjGEsCMVPYSCp-gX-UmUyJsQvSUHgbhnl39ZJCB14Tq-eXM3kG2Q6aizB8";
+const PAYPAL_CLIENT_ID =
+  import.meta.env.VITE_PAYPAL_CLIENT_ID ||
+  "AefD8SednJLcqfFDsiO9AetjGEsCMVPYSCp-gX-UmUyJsQvSUHgbhnl39ZJCB14Tq-eXM3kG2Q6aizB8";
 
 export default function Checkout() {
   const { cartItems, getCartTotal, clearCart } = useCart();
@@ -111,7 +113,8 @@ export default function Checkout() {
       console.error("Error creating order:", error);
       toast({
         title: "Order creation failed",
-        description: "Payment was successful but we couldn't create your order. Please contact support.",
+        description:
+          "Payment was successful but we couldn't create your order. Please contact support.",
         variant: "destructive",
       });
     } finally {
@@ -123,7 +126,8 @@ export default function Checkout() {
     console.error("PayPal payment error:", error);
     toast({
       title: "Payment failed",
-      description: "There was an error processing your PayPal payment. Please try again.",
+      description:
+        "There was an error processing your PayPal payment. Please try again.",
       variant: "destructive",
     });
   };
@@ -132,7 +136,8 @@ export default function Checkout() {
     console.log("PayPal payment cancelled:", data);
     toast({
       title: "Payment cancelled",
-      description: "You cancelled the PayPal payment. Your order was not placed.",
+      description:
+        "You cancelled the PayPal payment. Your order was not placed.",
     });
   };
 
@@ -313,7 +318,9 @@ export default function Checkout() {
                     <Checkbox
                       id="terms"
                       checked={agreeToTerms}
-                      onCheckedChange={(checked) => setAgreeToTerms(checked as boolean)}
+                      onCheckedChange={(checked) =>
+                        setAgreeToTerms(checked as boolean)
+                      }
                     />
                     <div className="text-sm">
                       <label htmlFor="terms" className="cursor-pointer">
@@ -336,16 +343,19 @@ export default function Checkout() {
                   </div>
 
                   {/* Guest validation */}
-                  {!isAuthenticated && (!guestInfo.name || !guestInfo.email) && (
-                    <div className="bg-muted/50 border border-border p-4 rounded-lg">
-                      <p className="text-sm text-muted-foreground">
-                        Please fill in your contact information above to continue.
-                      </p>
-                    </div>
-                  )}
+                  {!isAuthenticated &&
+                    (!guestInfo.name || !guestInfo.email) && (
+                      <div className="bg-muted/50 border border-border p-4 rounded-lg">
+                        <p className="text-sm text-muted-foreground">
+                          Please fill in your contact information above to
+                          continue.
+                        </p>
+                      </div>
+                    )}
 
                   {/* PayPal Payment Button */}
-                  {agreeToTerms && (isAuthenticated || (guestInfo.name && guestInfo.email)) ? (
+                  {agreeToTerms &&
+                  (isAuthenticated || (guestInfo.name && guestInfo.email)) ? (
                     <div className="space-y-4">
                       <div className="bg-muted/50 border border-border p-4 rounded-lg">
                         <div className="flex items-center space-x-2 text-sm text-muted-foreground">
@@ -355,7 +365,7 @@ export default function Checkout() {
                           </span>
                         </div>
                       </div>
-                      
+
                       <PayPalButtons
                         style={{
                           layout: "vertical",
