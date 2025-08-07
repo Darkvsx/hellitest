@@ -1,42 +1,48 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "dist/spa/**",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "server/index.ts",
-      "use": "@vercel/node"
-    }
-  ],
+  "framework": "vite",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/spa",
+  "installCommand": "npm install",
+  "devCommand": "npm run dev",
+  "cleanUrls": true,
+  "trailingSlash": false,
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/server/index.ts"
+      "dest": "/api/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/dist/spa/$1"
+      "dest": "/index.html"
     }
   ],
-  "outputDirectory": "dist/spa",
-  "framework": "vite",
-  "buildCommand": "npm run build",
-  "installCommand": "npm install",
-  "functions": {
-    "server/index.ts": {
-      "maxDuration": 30
-    }
-  },
-  "rewrites": [
+  "headers": [
     {
-      "source": "/api/(.*)",
-      "destination": "/server/index.ts"
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
     },
     {
-      "source": "/((?!api).*)",
-      "destination": "/index.html"
+      "source": "/(.*)\\.(js|css|svg|png|jpg|jpeg|gif|ico|woff|woff2)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     }
   ]
 }
