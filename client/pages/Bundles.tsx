@@ -134,6 +134,7 @@ const bundles: Bundle[] = [
 
 export default function Bundles() {
   const { addToCart } = useCart();
+  const { isAuthenticated } = useAuth();
   const { toast } = useToast();
 
   const handleAddBundle = (bundle: Bundle) => {
